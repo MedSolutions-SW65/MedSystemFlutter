@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:medsystem_app/register_page.dart';
 
 class LogingPage extends StatefulWidget {
   const LogingPage({super.key});
@@ -8,26 +9,29 @@ class LogingPage extends StatefulWidget {
 }
 
 class _LogingPageState extends State<LogingPage> {
-  TextEditingController usernameController = TextEditingController();
+
+  TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(
-          gradient: LinearGradient(
-              begin: Alignment.topRight,
-              end: Alignment.bottomLeft,
-              colors: [
-            Color.fromARGB(255, 78, 154, 253),
-            Color.fromARGB(255, 10, 48, 78)
-          ])),
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-        body: _page(),
+  return Stack(
+    fit: StackFit.expand,
+    children: [
+      Image.asset(
+        'assets/images/fondo.jpg',
+        fit: BoxFit.cover,
       ),
-    );
-  }
+      Container(
+        color: Colors.black.withOpacity(0.5),
+        child: Scaffold(
+          backgroundColor: const Color.fromARGB(170, 10, 31, 50),
+          body: _page(),
+        ),
+      ),
+    ],
+  );
+}
 
   Widget _page() {
     return Center(
@@ -40,7 +44,7 @@ class _LogingPageState extends State<LogingPage> {
             const SizedBox(
               height: 50,
             ),
-            _inputField("Username", usernameController),
+            _inputField("Email", emailController),
             const SizedBox(
               height: 20,
             ),
@@ -73,17 +77,12 @@ class _LogingPageState extends State<LogingPage> {
 
   Widget _inputField(String hintText, TextEditingController controller,
       {isPassword = false}) {
-    var border = OutlineInputBorder(
-        borderRadius: BorderRadius.circular(18),
-        borderSide: const BorderSide(color: Colors.white, width: 2));
     return TextField(
       style: const TextStyle(color: Colors.white),
       controller: controller,
-      decoration: InputDecoration(
+      decoration: InputDecoration(focusedBorder: const UnderlineInputBorder(borderSide: BorderSide(color: Colors.white)),
         hintText: hintText,
         hintStyle: const TextStyle(color: Colors.white),
-        enabledBorder: border,
-        focusedBorder: border,
       ),
       obscureText: isPassword,
     );
@@ -92,7 +91,7 @@ class _LogingPageState extends State<LogingPage> {
   Widget _loginBtn() {
     return ElevatedButton(
       onPressed: () {
-        debugPrint("Username: ${usernameController.text}");
+        debugPrint("Email: ${emailController.text}");
         debugPrint("Password: ${passwordController.text}");
       },
       style: ElevatedButton.styleFrom(
@@ -103,7 +102,7 @@ class _LogingPageState extends State<LogingPage> {
           child: Text(
             "Sign in",
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 20, color: Colors.blue),
+            style: TextStyle(fontSize: 20, color: Color.fromARGB(255, 0, 0, 0)),
           )),
     );
   }
@@ -117,10 +116,16 @@ class _LogingPageState extends State<LogingPage> {
           style: TextStyle(color: Colors.white),
         ),
         TextButton(
-          onPressed: () {},
+          onPressed: () {
+          Navigator.push(
+            context,
+              MaterialPageRoute(builder: (context) => const RegisterPage()),
+            );
+          },
           child: const Text(
             "Sign up",
-            style: TextStyle(color: Colors.blue),
+            style: TextStyle(color: Color.fromARGB(255, 255, 255, 255), 
+            fontWeight: FontWeight.bold)
           ),
         )
       ],
