@@ -27,6 +27,7 @@ class _HomepageState extends State<Homepage> {
               tabBackgroundColor: const Color.fromARGB(104, 103, 171, 248),
               gap: 8,
               padding: const EdgeInsets.all(16),
+              duration: const Duration(milliseconds: 900),
               onTabChange: (index) {
                 debugPrint('$index');
               },
