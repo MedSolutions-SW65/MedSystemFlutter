@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:medsystem_app/add_treatments_page.dart';
-import 'package:medsystem_app/current_treatments_page.dart';
+import 'package:medsystem_app/presentation/treatments/add_treatments_page.dart';
+import 'package:medsystem_app/presentation/treatments/current_treatments_page.dart';
 
 class TreatmentsScreen extends StatefulWidget {
   const TreatmentsScreen({super.key});

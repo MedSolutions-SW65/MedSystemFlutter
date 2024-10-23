@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:medsystem_app/treatments_page.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:medsystem_app/presentation/bloc/treatments_bloc.dart';
+import 'package:medsystem_app/presentation/treatments/treatments_page.dart';
 
 void main() {
   runApp(const MainApp());
@@ -10,7 +12,10 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-        debugShowCheckedModeBanner: false, home: TreatmentsScreen());
+    return BlocProvider(
+      create: (context) => TreatmentsBloc(),
+      child: const MaterialApp(
+          debugShowCheckedModeBanner: false, home: TreatmentsScreen()),
+    );
   }
 }

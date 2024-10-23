@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:medsystem_app/current_treatments_page.dart';
+import 'package:medsystem_app/presentation/treatments/current_treatments_page.dart';
 
 void main() {
   runApp(const MainApp());
