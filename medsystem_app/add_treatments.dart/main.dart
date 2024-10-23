@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:medsystem_app/treatments_page.dart';
+import 'package:medsystem_app/current_treatments_page.dart';
 
 void main() {
   runApp(const MainApp());
@@ -11,6 +11,6 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-        debugShowCheckedModeBanner: false, home: TreatmentsScreen());
+        debugShowCheckedModeBanner: false, home: CurrentTreatmentsScreen());
   }
 }
