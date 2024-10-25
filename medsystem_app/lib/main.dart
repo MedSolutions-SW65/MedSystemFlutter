@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:medsystem_app/homepage.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:medsystem_app/presentation/bloc/treatments_bloc.dart';
-import 'package:medsystem_app/presentation/treatments/treatments_page.dart';
-import 'package:medsystem_app/loging_page.dart';
+import 'package:medsystem_app/presentation/profile_page.dart';
 
 
 void main() {
@@ -20,7 +16,7 @@ class MainApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const LogingPage(),
+      home: const UserProfilePage(),
       debugShowCheckedModeBanner: false,
     );
   }

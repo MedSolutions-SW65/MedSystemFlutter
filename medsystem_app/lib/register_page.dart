@@ -169,7 +169,7 @@ class _RegisterPageState extends State<RegisterPage> {
             ),
             DropdownMenuItem(
               value: "Specialty 3",
-              child: const Text("Specialty 3",
+              child: Text("Specialty 3",
                   style: TextStyle(color: Color.fromARGB(255, 255, 255, 255))),
             ),
           ],
