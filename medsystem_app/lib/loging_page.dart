@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:medsystem_app/homepage.dart';
 import 'package:medsystem_app/register_page.dart';
 
 class LogingPage extends StatefulWidget {
@@ -9,29 +10,28 @@ class LogingPage extends StatefulWidget {
 }
 
 class _LogingPageState extends State<LogingPage> {
-
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-  return Stack(
-    fit: StackFit.expand,
-    children: [
-      Image.asset(
-        'assets/images/fondo.jpg',
-        fit: BoxFit.cover,
-      ),
-      Container(
-        color: Colors.black.withOpacity(0.5),
-        child: Scaffold(
-          backgroundColor: const Color.fromARGB(170, 10, 31, 50),
-          body: _page(),
+    return Stack(
+      fit: StackFit.expand,
+      children: [
+        Image.asset(
+          'assets/images/fondo.jpg',
+          fit: BoxFit.cover,
         ),
-      ),
-    ],
-  );
-}
+        Container(
+          color: Colors.black.withOpacity(0.5),
+          child: Scaffold(
+            backgroundColor: const Color.fromARGB(170, 10, 31, 50),
+            body: _page(),
+          ),
+        ),
+      ],
+    );
+  }
 
   Widget _page() {
     return Center(
@@ -80,7 +80,9 @@ class _LogingPageState extends State<LogingPage> {
     return TextField(
       style: const TextStyle(color: Colors.white),
       controller: controller,
-      decoration: InputDecoration(focusedBorder: const UnderlineInputBorder(borderSide: BorderSide(color: Colors.white)),
+      decoration: InputDecoration(
+        focusedBorder: const UnderlineInputBorder(
+            borderSide: BorderSide(color: Colors.white)),
         hintText: hintText,
         hintStyle: const TextStyle(color: Colors.white),
       ),
@@ -93,6 +95,10 @@ class _LogingPageState extends State<LogingPage> {
       onPressed: () {
         debugPrint("Email: ${emailController.text}");
         debugPrint("Password: ${passwordController.text}");
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const Homepage()),
+        );
       },
       style: ElevatedButton.styleFrom(
         shape: const StadiumBorder(),
@@ -117,16 +123,15 @@ class _LogingPageState extends State<LogingPage> {
         ),
         TextButton(
           onPressed: () {
-          Navigator.push(
-            context,
+            Navigator.push(
+              context,
               MaterialPageRoute(builder: (context) => const RegisterPage()),
             );
           },
-          child: const Text(
-            "Sign up",
-            style: TextStyle(color: Color.fromARGB(255, 255, 255, 255), 
-            fontWeight: FontWeight.bold)
-          ),
+          child: const Text("Sign up",
+              style: TextStyle(
+                  color: Color.fromARGB(255, 255, 255, 255),
+                  fontWeight: FontWeight.bold)),
         )
       ],
     );

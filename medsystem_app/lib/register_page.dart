@@ -15,8 +15,8 @@ class _RegisterPageState extends State<RegisterPage> {
   TextEditingController passwordController = TextEditingController();
   TextEditingController emailController = TextEditingController();
 
-  String? selectedRole; 
-  String? selectedSpecialty; 
+  String? selectedRole;
+  String? selectedSpecialty;
 
   @override
   Widget build(BuildContext context) {
@@ -99,11 +99,12 @@ class _RegisterPageState extends State<RegisterPage> {
 
   Widget _inputField(String hintText, TextEditingController controller,
       {isPassword = false}) {
-    
-    return TextField( 
+    return TextField(
       style: const TextStyle(color: Colors.white),
       controller: controller,
-      decoration: InputDecoration(focusedBorder: const UnderlineInputBorder(borderSide: BorderSide(color: Colors.white)),
+      decoration: InputDecoration(
+        focusedBorder: const UnderlineInputBorder(
+            borderSide: BorderSide(color: Colors.white)),
         hintText: hintText,
         hintStyle: const TextStyle(color: Colors.white),
       ),
@@ -169,7 +170,7 @@ class _RegisterPageState extends State<RegisterPage> {
             ),
             DropdownMenuItem(
               value: "Specialty 3",
-              child: const Text("Specialty 3",
+              child: Text("Specialty 3",
                   style: TextStyle(color: Color.fromARGB(255, 255, 255, 255))),
             ),
           ],
@@ -178,7 +179,8 @@ class _RegisterPageState extends State<RegisterPage> {
               selectedSpecialty = value;
             });
           },
-          dropdownColor: const Color.fromARGB(255, 73, 73, 73), // Color del dropdown
+          dropdownColor:
+              const Color.fromARGB(255, 73, 73, 73), // Color del dropdown
         ),
       ],
     );

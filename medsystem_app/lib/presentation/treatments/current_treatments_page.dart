@@ -22,7 +22,7 @@ class _CurrentTreatmentsScreenState extends State<CurrentTreatmentsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(46, 63, 110, 1),
+      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
@@ -59,7 +59,8 @@ class _CurrentTreatmentsScreenState extends State<CurrentTreatmentsScreen> {
                                   const Text('Patient: ',
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold)),
-                                  Text(state.treatments[index].patientId.toString()),
+                                  Text(state.treatments[index].patientId
+                                      .toString()),
                                 ],
                               ),
                             ),
@@ -91,10 +92,9 @@ class _CurrentTreatmentsScreenState extends State<CurrentTreatmentsScreen> {
                     },
                   ),
                 );
-              }
-              else {
+              } else {
                 if (state is TreatmentsErrorState) {
-                              return  Text(state.message);
+                  return Text(state.message);
                 }
               }
             }
