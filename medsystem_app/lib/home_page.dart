@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:medsystem_app/appointment_page.dart';
+import 'package:medsystem_app/presentation/appointments/appointment_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
