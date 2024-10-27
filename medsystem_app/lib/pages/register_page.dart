@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:medsystem_app/loging_page.dart';
+import 'package:medsystem_app/services/auth/auth_service.dart';
+import 'package:medsystem_app/pages/login_page.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -17,6 +18,21 @@ class _RegisterPageState extends State<RegisterPage> {
 
   String? selectedRole;
   String? selectedSpecialty;
+
+  void register(BuildContext context) {
+    final auth = AuthService();
+    try {
+      auth.signUpWithEmailAndPassword(
+          emailController.text, passwordController.text);
+    } catch (e) {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text(e.toString()),
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -189,6 +205,7 @@ class _RegisterPageState extends State<RegisterPage> {
   Widget _registerBtn() {
     return ElevatedButton(
       onPressed: () {
+        register(context);
         debugPrint("First Name: ${firstNameController.text}");
         debugPrint("Last Name: ${lastNameController.text}");
         debugPrint("DNI: ${dniController.text}");
@@ -220,7 +237,7 @@ class _RegisterPageState extends State<RegisterPage> {
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const LogingPage()),
+              MaterialPageRoute(builder: (context) => const LoginPage()),
             );
           },
           child: const Text("Sign in",
