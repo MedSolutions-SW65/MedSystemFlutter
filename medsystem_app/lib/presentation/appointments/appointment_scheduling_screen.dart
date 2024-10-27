@@ -43,10 +43,10 @@ class _AppointmentSchedulingScreenState extends State<AppointmentSchedulingScree
               },
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(top: 90.0, bottom: 150),
+          const Padding(
+            padding: EdgeInsets.only(top: 90.0, bottom: 150),
             child: Center(
-              child: Container(
+              child: SizedBox(
                 width: 350, 
                 height: 500, 
                 child: const Card(

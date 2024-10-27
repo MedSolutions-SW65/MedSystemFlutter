@@ -25,8 +25,8 @@ class _AppointmentPageState extends State<AppointmentPage> {
       backgroundColor: const Color(0xFF2E3F6E),
       body: Stack(children: [
         const Padding(
-          padding: const EdgeInsets.only(left: 100),
-          child: const Column(
+          padding: EdgeInsets.only(left: 100),
+          child: Column(
                 children: [
                   Text(
                     'Appointment Search',
@@ -93,10 +93,14 @@ class _AppointmentPageState extends State<AppointmentPage> {
                         itemCount: state.appointments.length,
                         itemBuilder: (context, index) {
                           return Card(
-                            color: Color(0xFFEDF2FA),
+                            color: const Color(0xFFEDF2FA),
                             child: Column(
                               children: [
+                                Text(state.appointments[index].doctorId.toString()),
+                                Text(state.appointments[index].patientId.toString()),
+                                Text(state.appointments[index].date),
                                 Text(state.appointments[index].reason),
+                                Text(state.appointments[index].specialty),
                               ],
                             ),
                           );
