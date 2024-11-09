@@ -28,8 +28,7 @@ class _AppointmentSchedulingScreenState
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 16.0), // Espacio alrededor del título
+                          padding: EdgeInsets.only(top: 40), // Espacio alrededor del título
                           child: Text(
                             'Schedule your',
                             style: TextStyle(
@@ -67,11 +66,11 @@ class _AppointmentSchedulingScreenState
                     ),
                   ),
                   const Padding(
-                    padding: EdgeInsets.only(top: 90.0, bottom: 150),
+                    padding: EdgeInsets.only(top: 150.0),
                     child: Center(
                       child: SizedBox(
                         width: 350,
-                        height: 500,
+                        height: 530,
                         child: Padding(
                           padding: EdgeInsets.all(
                               16.0), // Espacio alrededor de la Card
@@ -151,7 +150,7 @@ class _AppointmentSchedulingScreenState
                                 ),
                                 Padding(
                                   padding: EdgeInsets.only(
-                                      left: 20.0, right: 100.0, bottom: 20),
+                                      left: 20.0, right: 100.0),
                                   child: TextField(),
                                 ),
                               ],

@@ -19,7 +19,7 @@ class _DayOfAppointmentScreenState extends State<DayOfAppointmentScreen> {
       backgroundColor: const Color(0xFF2E3F6E),
       body: Stack(children: [
         const Padding(
-          padding: EdgeInsets.only(top: 8.0),
+          padding: EdgeInsets.only(top: 50.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
@@ -48,7 +48,7 @@ class _DayOfAppointmentScreenState extends State<DayOfAppointmentScreen> {
         Column(
           children: [
             Padding(
-              padding: const EdgeInsets.only(top: 70.0),
+              padding: const EdgeInsets.only(top: 100.0),
               child: Card(
                 color: const Color(0xFFEDF2FA),
                 margin: const EdgeInsets.all(16.0),
@@ -93,7 +93,7 @@ class _DayOfAppointmentScreenState extends State<DayOfAppointmentScreen> {
         Align(
             alignment: Alignment.bottomCenter,
             child: Padding(
-              padding: const EdgeInsets.only(bottom: 120.0),
+              padding: const EdgeInsets.only(bottom: 270.0),
               child: ElevatedButton(
                 onPressed: () {
                   Navigator.push(

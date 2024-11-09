@@ -32,8 +32,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: 16.0), // Espacio alrededor del título
+                  padding: EdgeInsets.only(top: 50), // Espacio alrededor del título
                   child: Text(
                     'Appointment Search',
                     style: TextStyle(
@@ -68,7 +67,10 @@ class _AppointmentPageState extends State<AppointmentPage> {
                 BlocBuilder<AppointmentsBloc, AppointmentsState>(
                   builder: (context, state) {
                     if (state is AppointmentsLoadingState) {
-                      return const CircularProgressIndicator();
+                      return const Padding(
+                        padding: EdgeInsets.only(top: 100.0),
+                        child: Center(child: CircularProgressIndicator()),
+                      );
                     } else if (state is AppointmentsLoadedState) {
                       if (state.appointments.isEmpty) {
                         return const Padding(
@@ -107,55 +109,68 @@ class _AppointmentPageState extends State<AppointmentPage> {
                         );
                       }
                       return Expanded(
-                        child: ListView.builder(
-                          itemCount: state.appointments.length,
-                          itemBuilder: (context, index) {
-                            return Card(
-                              color: const Color(0xFFEDF2FA),
-                              child: Column(
-                                children: [
-                                  Text(state.appointments[index].doctorId
-                                      .toString()),
-                                  Text(state.appointments[index].patientId
-                                      .toString()),
-                                  Text(state.appointments[index].date),
-                                  Text(state.appointments[index].reason),
-                                  Text(state.appointments[index].specialty),
-                                ],
-                              ),
-                            );
-                          },
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 60.0),
+                          child: ListView.builder(
+                            itemCount: state.appointments.length,
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                padding: const EdgeInsets.only(top: 8.0),
+                                child: Card(
+                                  color: const Color(0xFFEDF2FA),
+                                  child: Column(
+                                    children: [
+                                      Text(state.appointments[index].doctorId
+                                          .toString()),
+                                      Text(state.appointments[index].patientId
+                                          .toString()),
+                                      Text(state.appointments[index].date),
+                                      Text(state.appointments[index].reason),
+                                      Text(state.appointments[index].specialty),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
                         ),
                       );
                     } else {
-                      return const Text(
-                        'Failed to load appointments',
-                        style: TextStyle(color: Colors.red, fontSize: 20),
+                      return const Padding(
+                        padding: EdgeInsets.only(top: 100),
+                        child: Center(
+                          child: Text(
+                            'Failed to load appointments',
+                            style: TextStyle(color: Colors.red, fontSize: 20),
+                          ),
+                        ),
                       );
                     }
                   },
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(bottom: 220, top: 30),
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              const AppointmentSchedulingScreen(),
+                  padding: const EdgeInsets.only(top: 100.0, bottom: 300),
+                  child: Center(
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                const AppointmentSchedulingScreen(),
+                          ),
+                        );
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFF007AFF),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
                         ),
-                      );
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF007AFF),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
                       ),
-                    ),
-                    child: const Text(
-                      'Schedule an appointment',
-                      style: TextStyle(color: Colors.black),
+                      child: const Text(
+                        'Schedule an appointment',
+                        style: TextStyle(color: Colors.black),
+                      ),
                     ),
                   ),
                 ),

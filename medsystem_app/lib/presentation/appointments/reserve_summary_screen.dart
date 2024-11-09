@@ -16,7 +16,7 @@ class _ReserveSummaryScreenState extends State<ReserveSummaryScreen> {
       body: Stack(
         children: [
           Padding(
-            padding: const EdgeInsets.only(top: 8.0),
+            padding: const EdgeInsets.only(top: 60.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -31,7 +31,7 @@ class _ReserveSummaryScreenState extends State<ReserveSummaryScreen> {
                 ),
                 const Padding(
                   padding: EdgeInsets.only(
-                      top: 90.0, bottom: 20, left: 30, right: 30),
+                      top: 30.0, bottom: 20, left: 30, right: 30),
                   child: Center(
                     child: Card(
                       color: Color(0xFFEDF2FA),
@@ -118,16 +118,17 @@ class _ReserveSummaryScreenState extends State<ReserveSummaryScreen> {
                   ),
                 ),
                 const Padding(
-                  padding: EdgeInsets.only(left: 210),
-                  child: Text("S/ 42.00",
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                      )),
+                  padding: EdgeInsets.only(bottom: 10.0),
+                  child: Center(
+                    child: Text("S/ 42.00",
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                        )),
+                  ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 160, right: 160, top: 20),
+                Center(
                   child: ElevatedButton(
                     onPressed: () {
                       Navigator.push(
