@@ -1,6 +1,6 @@
 name: medsystem_app
 description: "A new Flutter project."
-publish_to: 'none'
+publish_to: "none"
 version: 0.1.0
 
 environment:
@@ -14,6 +14,20 @@ dependencies:
   http: ^1.2.2
   flutter_bloc: ^8.1.6
 
+  http: ^1.2.2
+  url_launcher: ^6.3.1
+  flutter_bloc: ^8.1.6
+  firebase_core: ^3.6.0
+  firebase_auth: ^5.3.1
+  cloud_firestore: ^5.4.4
+  firebase_storage: ^12.3.4
+  dash_chat_2: ^0.0.21
+  firebase_analytics: ^11.3.3
+  google_fonts: ^6.2.1
+  delightful_toast: ^1.1.0
+  get_it: ^8.0.1
+  image_picker: ^1.1.2
+  path: ^1.9.0
 
 dev_dependencies:
   flutter_test:
@@ -22,3 +36,5 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets:
+    - assets/images/
