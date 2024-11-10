@@ -6,10 +6,10 @@ class DayOfAppointmentScreen extends StatefulWidget {
   const DayOfAppointmentScreen({super.key});
 
   @override
-  _DayOfAppointmentScreenState createState() => _DayOfAppointmentScreenState();
+  DayOfAppointmentScreenState createState() => DayOfAppointmentScreenState();
 }
 
-class _DayOfAppointmentScreenState extends State<DayOfAppointmentScreen> {
+class DayOfAppointmentScreenState extends State<DayOfAppointmentScreen> {
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay;
 
@@ -56,12 +56,10 @@ class _DayOfAppointmentScreenState extends State<DayOfAppointmentScreen> {
                   padding: const EdgeInsets.all(16.0),
                   child: Column(
                     children: [
-                      const Text(
-                          'Select your turn',
+                      const Text('Select your turn',
                           style: TextStyle(
                             fontSize: 20,
-                          )
-                      ),
+                          )),
                       TableCalendar(
                         firstDay: DateTime.utc(2010, 10, 16),
                         lastDay: DateTime.utc(2030, 3, 14),
@@ -91,32 +89,31 @@ class _DayOfAppointmentScreenState extends State<DayOfAppointmentScreen> {
           ],
         ),
         Align(
-            alignment: Alignment.bottomCenter,
-            child: Padding(
-              padding: const EdgeInsets.only(bottom: 270.0),
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => 
-                        const ReserveSummaryScreen(),
-                    ),
-                  );
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF007AFF),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10), 
+          alignment: Alignment.bottomCenter,
+          child: Padding(
+            padding: const EdgeInsets.only(bottom: 270.0),
+            child: ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const ReserveSummaryScreen(),
                   ),
+                );
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFF007AFF),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
                 ),
-                child: const Text(
+              ),
+              child: const Text(
                 'Next',
                 style: TextStyle(color: Colors.black),
               ),
-              ),
             ),
           ),
+        ),
       ]),
     );
   }
