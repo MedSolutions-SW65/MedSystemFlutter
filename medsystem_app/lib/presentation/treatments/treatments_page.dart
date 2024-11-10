@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:medsystem_app/presentation/treatments/add_treatments_page.dart';
 import 'package:medsystem_app/presentation/treatments/current_treatments_page.dart';
+import 'package:medsystem_app/presentation/treatments/history_treatments_page.dart';
+import 'package:medsystem_app/presentation/treatments/remove_treatments_page.dart';
 
 class TreatmentsScreen extends StatefulWidget {
   const TreatmentsScreen({super.key});
@@ -20,8 +22,8 @@ class _TreatmentsScreenState extends State<TreatmentsScreen> {
   }
 
   final List<Widget> _pages = const [
-    Icon(Icons.favorite),
-    Text('History'),
+    RemoveTreatmentsPage(),
+    HistoryTreatmentsPage(),
     AddTreatmentsScreen()
   ];
 
