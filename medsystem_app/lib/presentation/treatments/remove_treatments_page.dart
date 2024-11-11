@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:medsystem_app/presentation/treatments/treatments_page.dart';
 
@@ -17,23 +16,28 @@ class _RemoveTreatmentsPageState extends State<RemoveTreatmentsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(46, 63, 110, 1),
-      appBar: AppBar(
-        title: const Text(
-          'Remove Treatments',
-          style: TextStyle(fontSize: 20, color: Colors.white),
-        ),
-        backgroundColor: const Color.fromRGBO(46, 63, 110, 1),
-      ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+      body: Stack(
+        children: [
+          // Fondo con imagen y opacidad
+          Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: const AssetImage("assets/images/fondo.jpg"),
+                fit: BoxFit.cover,
+                colorFilter: ColorFilter.mode(
+                  Colors.black.withOpacity(0.5),
+                  BlendMode.darken,
+                ),
+              ),
+            ),
+          ),
+          Column(
             children: [
-              Align(
-                alignment: Alignment.topLeft,
-                child: ElevatedButton(
+                AppBar(
+                  backgroundColor: Colors.transparent,
+                  elevation: 0,
+                leading: IconButton(
+                  icon: const Icon(Icons.arrow_back, color: Colors.white),
                   onPressed: () {
                     Navigator.pushReplacement(
                       context,
@@ -42,74 +46,97 @@ class _RemoveTreatmentsPageState extends State<RemoveTreatmentsPage> {
                       ),
                     );
                   },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color.fromRGBO(46, 63, 110, 1),
-                    padding: const EdgeInsets.all(5),
-                    minimumSize: const Size(20, 30),
-                  ),
-                  child: const Icon(Icons.arrow_back, color: Colors.white),
                 ),
               ),
-              const SizedBox(height: 20),
-              Center(
-                child: Card(
-                  margin: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          'Treatment List',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 20),
-                        ),
-                        const SizedBox(height: 10),
-                        const Text(
-                          'Select the treatment you want to remove:',
-                          style: TextStyle(fontSize: 16),
-                        ),
-                        const SizedBox(height: 20),
-                        Form(
-                          child: Column(
-                            children: <Widget>[
-                              SizedBox(
-                                width: double.infinity,
-                                child: DropdownButtonFormField<String>(
+              Expanded(
+                child: Center(
+                  child: Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    margin: const EdgeInsets.all(16.0),
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          const Text(
+                            'Treatment List',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 22,
+                              color: Color.fromRGBO(46, 63, 110, 1),
+                            ),
+                          ),
+                          const SizedBox(height: 10),
+                          const Text(
+                            'Select the treatment you want to remove:',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(fontSize: 16, color: Colors.black87),
+                          ),
+                          const SizedBox(height: 20),
+                          Form(
+                            child: Column(
+                              children: <Widget>[
+                                DropdownButtonFormField<String>(
                                   value: dropdownValue,
+                                  decoration: InputDecoration(
+                                    contentPadding: const EdgeInsets.symmetric(
+                                      vertical: 12.0, horizontal: 16.0),
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                  ),
                                   onChanged: (String? newValue) {
                                     setState(() {
                                       dropdownValue = newValue!;
                                     });
                                   },
                                   items: list.map<DropdownMenuItem<String>>(
-                                      (String value) {
-                                    return DropdownMenuItem<String>(
-                                      value: value,
-                                      child: Text(value),
-                                    );
-                                  }).toList(),
+                                    (String value) {
+                                      return DropdownMenuItem<String>(
+                                        value: value,
+                                        child: Text(value),
+                                      );
+                                    },
+                                  ).toList(),
                                 ),
-                              ),
-                              const SizedBox(height: 20),
-                              ElevatedButton(
-                                onPressed: () {
-                                  // Acción para eliminar el tratamiento seleccionado
-                                },
-                                child: const Text("Remove"),
-                              ),
-                            ],
+                                const SizedBox(height: 20),
+                                ElevatedButton(
+                                  onPressed: () {
+                                    // Acción para eliminar el tratamiento seleccionado
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.redAccent,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    padding: const EdgeInsets.symmetric(
+                                      vertical: 14.0, horizontal: 24.0),
+                                  ),
+                                  child: const Text(
+                                    "Remove",
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),
               ),
             ],
           ),
-        ),
+        ],
       ),
     );
   }

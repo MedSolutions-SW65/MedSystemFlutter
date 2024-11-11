@@ -22,84 +22,123 @@ class _CurrentTreatmentsScreenState extends State<CurrentTreatmentsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(46, 63, 110, 1),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
+      body: Stack(
         children: [
-          const Padding(
-            padding: EdgeInsets.all(10.0),
-            child: Text(
-              'Current Treatments',
-              style: TextStyle(fontSize: 20, color: Colors.white),
+          Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: const AssetImage("assets/images/fondo.jpg"),
+                fit: BoxFit.cover,
+                colorFilter: ColorFilter.mode(
+                  Colors.black.withOpacity(0.5), // Cambia la opacidad aquí
+                  BlendMode.darken,
+                ),
+              ),
             ),
           ),
-          BlocBuilder<TreatmentsBloc, TreatmentsState>(
-              builder: (context, state) {
-            if (state is TreatmentsLoadingState) {
-              return const CircularProgressIndicator();
-            } else {
-              if (state is TreatmentsLoadedState) {
-                return Expanded(
-                  child: ListView.builder(
-                    itemCount: state.treatments.length,
-                    itemBuilder: (context, index) {
-                      return Card(
-                        child: Column(
-                          children: [
-                            ListTile(
-                              title: Text(state.treatments[index].treatmentName,
-                                  textAlign: TextAlign.center,
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.bold)),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(30, 0, 0, 5),
-                              child: Row(
-                                children: [
-                                  const Text('Patient: ',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold)),
-                                  Text(state.treatments[index].patientId.toString()),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(30, 5, 0, 5),
-                              child: Row(
-                                children: [
-                                  const Text('Description: ',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold)),
-                                  Text(state.treatments[index].description),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(30, 5, 20, 20),
-                              child: Row(
-                                children: [
-                                  const Text('Period: ',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold)),
-                                  Text(state.treatments[index].period),
-                                ],
-                              ),
-                            ),
-                          ],
+           Padding(
+            padding: const EdgeInsets.only(top: 80.0),
+                child: BlocBuilder<TreatmentsBloc, TreatmentsState>(
+                  builder: (context, state) {
+                    if (state is TreatmentsLoadingState) {
+                      return const Center(
+                        child: CircularProgressIndicator(
+                          color: Colors.white,
                         ),
                       );
-                    },
-                  ),
-                );
-              }
-              else {
-                if (state is TreatmentsErrorState) {
-                              return  Text(state.message);
-                }
-              }
-            }
-            return const Text('Current Treatments');
-          })
+                    } else if (state is TreatmentsLoadedState) {
+                      return ListView.builder(
+                        itemCount: state.treatments.length,
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                        itemBuilder: (context, index) {
+                          final treatment = state.treatments[index];
+                          return Card(
+                            color: Colors.white.withOpacity(0.9),
+                            margin: const EdgeInsets.symmetric(vertical: 8.0),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(16.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Center(
+                                    child: Text(
+                                      treatment.treatmentName,
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 18,
+                                        color: Color.fromRGBO(46, 63, 110, 1),
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(height: 8),
+                                  _buildDetailRow(
+                                    label: 'Patient:',
+                                    value: treatment.patientId.toString(),
+                                  ),
+                                  _buildDetailRow(
+                                    label: 'Description:',
+                                    value: treatment.description,
+                                  ),
+                                  _buildDetailRow(
+                                    label: 'Period:',
+                                    value: treatment.period,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        },
+                      );
+                    } else if (state is TreatmentsErrorState) {
+                      return Center(
+                        child: Text(
+                          state.message,
+                          style: const TextStyle(
+                            color: Colors.redAccent,
+                            fontSize: 16,
+                          ),
+                        ),
+                      );
+                    }
+                    return const Center(
+                      child: Text(
+                        'No treatments found',
+                        style: TextStyle(color: Colors.white, fontSize: 16),
+                      ),
+                    );
+                  },
+                ),
+           ),      
+        ],
+      ),
+    );
+  }
+
+  Widget _buildDetailRow({required String label, required String value}) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4.0),
+      child: Row(
+        children: [
+          Text(
+            label,
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Color.fromRGBO(46, 63, 110, 1),
+            ),
+          ),
+          const SizedBox(width: 8),
+          Expanded(
+            child: Text(
+              value,
+              style: const TextStyle(
+                overflow: TextOverflow.ellipsis,
+                color: Colors.black87,
+              ),
+            ),
+          ),
         ],
       ),
     );
