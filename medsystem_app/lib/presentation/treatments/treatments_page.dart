@@ -22,15 +22,15 @@ class _TreatmentsScreenState extends State<TreatmentsScreen> {
   }
 
   final List<Widget> _pages = const [
-    RemoveTreatmentsPage(),
     HistoryTreatmentsPage(),
-    AddTreatmentsScreen()
+    AddTreatmentsScreen(),    
+    RemoveTreatmentsPage()
   ];
 
 String _getAppBarTitle() {
-  if (_selectedIndex == 0) return 'Remove Treatments';
-  if (_selectedIndex == 1) return 'Treatments History';
-  if (_selectedIndex == 2) return 'Add Treatments';
+  if (_selectedIndex == 0) return 'Current Treatments';
+  if (_selectedIndex == 1) return 'Add Treatments';
+  if (_selectedIndex == 2) return 'Remove Treatments';
   return 'Current Treatments';
 }
 
@@ -73,7 +73,7 @@ String _getAppBarTitle() {
         padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 20),
         child: Container(
           decoration: BoxDecoration(
-            color: Colors.white.withOpacity(0.8),  // Color semi-transparente
+            color: Colors.white.withOpacity(0.8), 
             borderRadius: BorderRadius.circular(30),
           ),
           child: Padding(
@@ -81,14 +81,14 @@ String _getAppBarTitle() {
             child: GNav(
               color: Colors.black,
               activeColor: Colors.white,
-              tabBackgroundColor: const Color.fromARGB(255, 96, 196, 209),  // Color de fondo activo
+              tabBackgroundColor: const Color.fromARGB(255, 96, 196, 209), 
               gap: 8,
               padding: const EdgeInsets.all(16),
               duration: const Duration(milliseconds: 300),
               tabs: const [
-                GButton(icon: Icons.delete, text: 'Delete'),
                 GButton(icon: Icons.history, text: 'History'),
                 GButton(icon: Icons.add, text: 'Add'),
+                GButton(icon: Icons.delete, text: 'Delete'),
               ],
               selectedIndex: _selectedIndex == -1 ? 0 : _selectedIndex,
               onTabChange: _onItemTapped,
