@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:medsystem_app/presentation/treatments/add_treatments_page.dart';
+//import 'package:google_nav_bar/google_nav_bar.dart';
+//import 'package:medsystem_app/presentation/treatments/add_treatments_page.dart';
 import 'package:medsystem_app/presentation/treatments/current_treatments_page.dart';
 import 'package:medsystem_app/presentation/treatments/history_treatments_page.dart';
 import 'package:medsystem_app/presentation/treatments/remove_treatments_page.dart';
@@ -103,8 +103,9 @@ String _getAppBarTitle() {
               ),
             ),
           ),
+          backgroundColor: const Color.fromARGB(255, 255, 255, 255),
         ),
-      ),
-    );
+        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+        body: const CurrentTreatmentsScreen());
   }
 }

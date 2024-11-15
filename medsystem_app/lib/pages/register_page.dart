@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:medsystem_app/loging_page.dart';
+import 'package:medsystem_app/services/auth/auth_service.dart';
+import 'package:medsystem_app/pages/login_page.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -15,8 +16,23 @@ class _RegisterPageState extends State<RegisterPage> {
   TextEditingController passwordController = TextEditingController();
   TextEditingController emailController = TextEditingController();
 
-  String? selectedRole; 
-  String? selectedSpecialty; 
+  String? selectedRole;
+  String? selectedSpecialty;
+
+  void register(BuildContext context) {
+    final auth = AuthService();
+    try {
+      auth.signUpWithEmailAndPassword(
+          emailController.text, passwordController.text);
+    } catch (e) {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text(e.toString()),
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -99,11 +115,12 @@ class _RegisterPageState extends State<RegisterPage> {
 
   Widget _inputField(String hintText, TextEditingController controller,
       {isPassword = false}) {
-    
-    return TextField( 
+    return TextField(
       style: const TextStyle(color: Colors.white),
       controller: controller,
-      decoration: InputDecoration(focusedBorder: const UnderlineInputBorder(borderSide: BorderSide(color: Colors.white)),
+      decoration: InputDecoration(
+        focusedBorder: const UnderlineInputBorder(
+            borderSide: BorderSide(color: Colors.white)),
         hintText: hintText,
         hintStyle: const TextStyle(color: Colors.white),
       ),
@@ -169,7 +186,7 @@ class _RegisterPageState extends State<RegisterPage> {
             ),
             DropdownMenuItem(
               value: "Specialty 3",
-              child: const Text("Specialty 3",
+              child: Text("Specialty 3",
                   style: TextStyle(color: Color.fromARGB(255, 255, 255, 255))),
             ),
           ],
@@ -178,7 +195,8 @@ class _RegisterPageState extends State<RegisterPage> {
               selectedSpecialty = value;
             });
           },
-          dropdownColor: const Color.fromARGB(255, 73, 73, 73), // Color del dropdown
+          dropdownColor:
+              const Color.fromARGB(255, 73, 73, 73), // Color del dropdown
         ),
       ],
     );
@@ -187,6 +205,7 @@ class _RegisterPageState extends State<RegisterPage> {
   Widget _registerBtn() {
     return ElevatedButton(
       onPressed: () {
+        register(context);
         debugPrint("First Name: ${firstNameController.text}");
         debugPrint("Last Name: ${lastNameController.text}");
         debugPrint("DNI: ${dniController.text}");
@@ -218,7 +237,7 @@ class _RegisterPageState extends State<RegisterPage> {
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const LogingPage()),
+              MaterialPageRoute(builder: (context) => const LoginPage()),
             );
           },
           child: const Text("Sign in",
