@@ -9,26 +9,32 @@ class AddTreatmentsScreen extends StatefulWidget {
 }
 
 class _AddTreatmentsScreenState extends State<AddTreatmentsScreen> {
+  final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'Add Treatments',
-          style: TextStyle(fontSize: 24, color: Colors.white),
-        ),
-        backgroundColor: const Color.fromRGBO(46, 63, 110, 1),
-      ),
-      backgroundColor: const Color.fromRGBO(46, 63, 110, 1),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+      body: Stack(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: const AssetImage("assets/images/fondo.jpg"),
+                fit: BoxFit.cover,
+                colorFilter: ColorFilter.mode(
+                  Colors.black.withOpacity(0.5),
+                  BlendMode.darken,
+                ),
+              ),
+            ),
+          ),
+          Column(
             children: [
-              Align(
-                alignment: Alignment.topLeft,
-                child: ElevatedButton(
+              AppBar(
+                backgroundColor: Colors.transparent,
+                elevation: 0,
+                leading: IconButton(
+                  icon: const Icon(Icons.arrow_back, color: Colors.white),
                   onPressed: () {
                     Navigator.pushReplacement(
                       context,
@@ -37,88 +43,113 @@ class _AddTreatmentsScreenState extends State<AddTreatmentsScreen> {
                       ),
                     );
                   },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color.fromRGBO(46, 63, 110, 1),
-                    padding: const EdgeInsets.all(5),
-                    minimumSize: const Size(20, 30),
-                  ),
-                  child: const Icon(Icons.arrow_back, color: Colors.white),
                 ),
               ),
-              const SizedBox(height: 20),
-              Card(
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        'Add Treatments',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 20),
+              Expanded(
+                child: Center(
+                  child: SingleChildScrollView(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15),
                       ),
-                      Form(
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
                         child: Column(
-                          children: <Widget>[
-                            TextFormField(
-                              decoration: const InputDecoration(
-                                  labelText: 'Name of Patients'),
-                              validator: (String? value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please enter some text';
-                                }
-                                return null;
-                              },
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Center(
+                              child: Text(
+                                'Add New Treatment',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 22,
+                                  color: Color.fromRGBO(46, 63, 110, 1),
+                                ),
+                              ),
                             ),
-                            TextFormField(
-                              decoration: const InputDecoration(
-                                  labelText: 'Name of Treatments'),
-                              validator: (String? value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please enter some text';
-                                }
-                                return null;
-                              },
-                            ),
-                            TextFormField(
-                              decoration: const InputDecoration(
-                                  labelText: 'Description'),
-                              validator: (String? value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please enter some text';
-                                }
-                                return null;
-                              },
-                            ),
-                            TextFormField(
-                              decoration:
-                                  const InputDecoration(labelText: 'Period'),
-                              validator: (String? value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please enter some text';
-                                }
-                                return null;
-                              },
-                            ),
-                            const Padding(
-                              padding: EdgeInsets.symmetric(vertical: 16.0),
-                              child: ElevatedButton(
-                                onPressed: null,
-                                child: Text("Submit"),
+                            const SizedBox(height: 16),
+                            Form(
+                              key: _formKey,
+                              child: Column(
+                                children: <Widget>[
+                                  _buildTextField(
+                                    label: 'Name of Patient',
+                                  ),
+                                  const SizedBox(height: 10),
+                                  _buildTextField(
+                                    label: 'Name of Treatment',
+                                  ),
+                                  const SizedBox(height: 10),
+                                  _buildTextField(
+                                    label: 'Description',
+                                  ),
+                                  const SizedBox(height: 10),
+                                  _buildTextField(
+                                    label: 'Period',
+                                  ),
+                                  const SizedBox(height: 20),
+                                  ElevatedButton(
+                                    onPressed: () {
+                                      if (_formKey.currentState!.validate()) {
+                                      }
+                                    },
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: Colors.blueAccent,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                      padding: const EdgeInsets.symmetric(
+                                        vertical: 14.0,
+                                        horizontal: 24.0,
+                                      ),
+                                    ),
+                                    child: const Text(
+                                      "Submit",
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
                           ],
                         ),
                       ),
-                    ],
+                    ),
                   ),
                 ),
               ),
             ],
           ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildTextField({required String label}) {
+    return TextFormField(
+      decoration: InputDecoration(
+        labelText: label,
+        filled: true,
+        fillColor: Colors.white,
+        contentPadding: const EdgeInsets.symmetric(
+          vertical: 12.0,
+          horizontal: 16.0,
+        ),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
         ),
       ),
+      validator: (String? value) {
+        if (value == null || value.isEmpty) {
+          return 'Please enter some text';
+        }
+        return null;
+      },
     );
   }
 }
