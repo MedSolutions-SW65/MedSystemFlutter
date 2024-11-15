@@ -16,6 +16,7 @@ import 'package:medsystem_app/presentation/bloc/treatments_bloc.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
   runApp(const MainApp());
 }
 
@@ -27,6 +28,7 @@ class MainApp extends StatelessWidget {
     return BlocProvider(
       create: (context) => TreatmentsBloc(),
       child: const MaterialApp(
+
           debugShowCheckedModeBanner: false, home: AuthGate()),
     );
   }
