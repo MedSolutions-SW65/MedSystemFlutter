@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:medsystem_app/chat_list_page.dart';
 import 'package:medsystem_app/presentation/appointments/appointment_page.dart';
-//import 'package:medsystem_app/pages/chat_page.dart';
 import 'package:medsystem_app/presentation/profile_page.dart';
 import 'package:medsystem_app/presentation/treatments/treatments_page.dart';
 
@@ -18,14 +17,30 @@ class _HomepageState extends State<Homepage> {
 
   final List<Widget> _pages = [
     const AppointmentPage(),
-    const TreatmentsScreen(),
+    const Placeholder(), // Aquí añadiremos el botón para TreatmentsScreen
     ChatListPage(),
     const UserProfilePage(),
   ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _pages[_selectedIndex],
+      body: _selectedIndex == 1
+          ? Center(
+              child: ElevatedButton(
+                onPressed: () {
+                  // Navegamos a TreatmentsScreen
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const TreatmentsScreen(),
+                    ),
+                  );
+                },
+                child: const Text("Mira tus tratamientos"),
+              ),
+            )
+          : _pages[_selectedIndex],
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 20),
         child: Container(
@@ -49,10 +64,7 @@ class _HomepageState extends State<Homepage> {
                 });
               },
               tabs: const [
-                GButton(
-                  icon: Icons.alarm,
-                  text: 'Appointments',
-                ),
+                GButton(icon: Icons.alarm, text: 'Appointments'),
                 GButton(icon: Icons.align_vertical_bottom, text: 'Treatments'),
                 GButton(icon: Icons.chat, text: 'Chat'),
                 GButton(icon: Icons.person, text: 'Profile'),

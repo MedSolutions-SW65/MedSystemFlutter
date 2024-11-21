@@ -10,7 +10,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,6 +24,7 @@ class _HomePageState extends State<HomePage> {
             padding: const EdgeInsets.all(8.0),
             child: GNav(
               color: Colors.white,
+              rippleColor: Colors.grey[300]!,
               activeColor: Colors.white,
               tabBackgroundColor: const Color.fromARGB(104, 103, 171, 248),
               gap: 8,
@@ -35,7 +35,8 @@ class _HomePageState extends State<HomePage> {
                 if (index == 1) {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const AppointmentPage()),
+                    MaterialPageRoute(
+                        builder: (context) => const AppointmentPage()),
                   );
                 }
               },

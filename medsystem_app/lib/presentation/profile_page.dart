@@ -24,8 +24,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
 
   void loadUser() async {
     final authService = AuthService();
-    final email = await authService
-        .getCurrentUserEmail(); // Método ficticio que obtiene el correo del usuario actual
+    final email = await authService.getCurrentUserEmail();
     setState(() {
       userEmail = email;
     });
@@ -37,44 +36,68 @@ class _UserProfilePageState extends State<UserProfilePage> {
       body: Stack(
         fit: StackFit.expand,
         children: [
-          // Capa de sombra
+          // Background Image
           Container(
-            color: const Color.fromARGB(255, 255, 255, 255)
-                .withOpacity(0.5), // Sombra sobre la imagen
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: const AssetImage("assets/images/fondo.jpg"),
+                fit: BoxFit.cover,
+                colorFilter: ColorFilter.mode(
+                  Colors.black.withOpacity(0.5), // Cambia la opacidad aquí
+                  BlendMode.darken,
+                ),
+              ),
+            ),
           ),
-          // Contenido
+          // Contenido principal
           Center(
             child: Padding(
               padding: const EdgeInsets.all(16.0),
               child: Container(
                 padding: const EdgeInsets.all(20.0),
+                decoration: BoxDecoration(
+                  color: Colors.white.withOpacity(0.8),
+                  borderRadius: BorderRadius.circular(16),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.2),
+                      blurRadius: 10,
+                      spreadRadius: 2,
+                    ),
+                  ],
+                ),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const CircleAvatar(
                       radius: 50,
-                      backgroundImage: NetworkImage(
-                          'https://via.placeholder.com/150'), // Cambia esto por la URL de la imagen del usuario
+                      backgroundImage: AssetImage(
+                          "assets/images/profile.jpg"), // Cambia esto por la URL de la imagen del usuario
                     ),
                     const SizedBox(height: 16),
                     const Text(
                       'Nombre del Usuario',
                       style: TextStyle(
-                          fontSize: 24,
-                          color: Color.fromARGB(255, 0, 0, 0),
-                          fontWeight: FontWeight.bold),
+                        fontSize: 24,
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                     const SizedBox(height: 8),
                     Text(
                       userEmail ?? 'Cargando...',
                       style: const TextStyle(
-                          fontSize: 16, color: Color.fromARGB(255, 0, 0, 0)),
+                        fontSize: 16,
+                        color: Colors.black,
+                      ),
                     ),
                     const Text(
                       'dni:12345678',
                       style: TextStyle(
-                          fontSize: 16, color: Color.fromARGB(255, 0, 0, 0)),
+                        fontSize: 16,
+                        color: Colors.black,
+                      ),
                     ),
                     const SizedBox(height: 32),
                     OutlinedButton(
@@ -82,16 +105,14 @@ class _UserProfilePageState extends State<UserProfilePage> {
                         logout();
                       },
                       style: OutlinedButton.styleFrom(
-                        side: const BorderSide(
-                            color: Colors.white), // Borde blanco
-                        backgroundColor:
-                            Colors.transparent, // Fondo transparente
+                        side: const BorderSide(color: Colors.black),
+                        backgroundColor: Colors.transparent,
                       ),
                       child: const Text(
                         'Regresar',
                         style: TextStyle(
-                            color:
-                                Color.fromARGB(255, 0, 0, 0)), // Texto blanco
+                          color: Colors.black,
+                        ),
                       ),
                     ),
                   ],
@@ -99,7 +120,6 @@ class _UserProfilePageState extends State<UserProfilePage> {
               ),
             ),
           ),
-          // AppBar en la parte superior
         ],
       ),
     );
