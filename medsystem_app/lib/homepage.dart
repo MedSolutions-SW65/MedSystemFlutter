@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:medsystem_app/chat_list_page.dart';
+import 'package:medsystem_app/presentation/appointments/appointment_page.dart';
 //import 'package:medsystem_app/pages/chat_page.dart';
 import 'package:medsystem_app/presentation/profile_page.dart';
 import 'package:medsystem_app/presentation/treatments/treatments_page.dart';
@@ -16,7 +17,7 @@ class _HomepageState extends State<Homepage> {
   int _selectedIndex = 0;
 
   final List<Widget> _pages = [
-    const Icon(Icons.favorite),
+    const AppointmentPage(),
     const TreatmentsScreen(),
     ChatListPage(),
     const UserProfilePage(),
