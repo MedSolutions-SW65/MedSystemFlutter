@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:medsystem_app/services/auth/auth_gate.dart';
 import 'package:medsystem_app/services/auth/auth_service.dart';
 import 'package:medsystem_app/pages/login_page.dart';
 
@@ -19,16 +21,40 @@ class _RegisterPageState extends State<RegisterPage> {
   String? selectedRole;
   String? selectedSpecialty;
 
-  void register(BuildContext context) {
+  void register(BuildContext context) async {
     final auth = AuthService();
+
     try {
-      auth.signUpWithEmailAndPassword(
-          emailController.text, passwordController.text);
+      // Registra al usuario y devuelve el UserCredential
+      UserCredential userCredential = await auth.signUpWithEmailAndPassword(
+        emailController.text,
+        passwordController.text,
+      );
+
+      // Verifica si el usuario se registró correctamente
+      if (userCredential.user != null) {
+        // Redirige al usuario a la pantalla principal
+        if (mounted) {
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) => const AuthGate()),
+            (route) => false, // Elimina todas las rutas anteriores
+          );
+        }
+      }
     } catch (e) {
+      // Muestra un diálogo de error si algo sale mal
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          title: Text(e.toString()),
+          title: const Text('Error'),
+          content: Text(e.toString()),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('OK'),
+            ),
+          ],
         ),
       );
     }
@@ -61,29 +87,25 @@ class _RegisterPageState extends State<RegisterPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            _icon(),
-            const SizedBox(
-              height: 15,
-            ),
             _inputField("First name", firstNameController),
             const SizedBox(
-              height: 15,
+              height: 10,
             ),
             _inputField("Last name", lastNameController),
             const SizedBox(
-              height: 15,
+              height: 10,
             ),
             _inputField("DNI", dniController),
             const SizedBox(
-              height: 15,
+              height: 10,
             ),
             _inputField("Email", emailController),
             const SizedBox(
-              height: 15,
+              height: 10,
             ),
             _inputField("Password", passwordController, isPassword: true),
             const SizedBox(
-              height: 15,
+              height: 10,
             ),
             _roleSelection(),
             if (selectedRole == "Doctor") _specialtySelection(),
@@ -99,18 +121,6 @@ class _RegisterPageState extends State<RegisterPage> {
         ),
       ),
     );
-  }
-
-  Widget _icon() {
-    return Container(
-        decoration: BoxDecoration(
-            border: Border.all(color: Colors.white, width: 2),
-            shape: BoxShape.circle),
-        child: const Icon(
-          Icons.person,
-          color: Colors.white,
-          size: 120,
-        ));
   }
 
   Widget _inputField(String hintText, TextEditingController controller,

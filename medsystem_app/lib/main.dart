@@ -1,11 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:medsystem_app/presentation/appointments/appointment_page.dart';
-import 'package:medsystem_app/presentation/appointments/bloc/appointments_bloc.dart';
 
 //import 'package:medsystem_app/homepage.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medsystem_app/services/auth/auth_gate.dart';
 import 'package:medsystem_app/firebase_options.dart';
 
@@ -28,7 +25,6 @@ class MainApp extends StatelessWidget {
     return BlocProvider(
       create: (context) => TreatmentsBloc(),
       child: const MaterialApp(
-
           debugShowCheckedModeBanner: false, home: AuthGate()),
     );
   }
