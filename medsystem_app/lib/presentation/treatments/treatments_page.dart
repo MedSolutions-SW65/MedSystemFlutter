@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-//import 'package:google_nav_bar/google_nav_bar.dart';
-//import 'package:medsystem_app/presentation/treatments/add_treatments_page.dart';
+import 'package:medsystem_app/presentation/treatments/add_treatments_page.dart';
 import 'package:medsystem_app/presentation/treatments/current_treatments_page.dart';
 import 'package:medsystem_app/presentation/treatments/history_treatments_page.dart';
 import 'package:medsystem_app/presentation/treatments/remove_treatments_page.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
 
 class TreatmentsScreen extends StatefulWidget {
   const TreatmentsScreen({super.key});
@@ -23,29 +23,31 @@ class _TreatmentsScreenState extends State<TreatmentsScreen> {
 
   final List<Widget> _pages = const [
     HistoryTreatmentsPage(),
-    AddTreatmentsScreen(),    
+    AddTreatmentsScreen(),
     RemoveTreatmentsPage()
   ];
 
-String _getAppBarTitle() {
-  if (_selectedIndex == 0) return 'Current Treatments';
-  if (_selectedIndex == 1) return 'Add Treatments';
-  if (_selectedIndex == 2) return 'Remove Treatments';
-  return 'Current Treatments';
-}
-
+  String _getAppBarTitle() {
+    if (_selectedIndex == 0) return 'Current Treatments';
+    if (_selectedIndex == 1) return 'Add Treatments';
+    if (_selectedIndex == 2) return 'Remove Treatments';
+    return 'Current Treatments';
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBodyBehindAppBar: true,  // Permite que el fondo se extienda detrás del AppBar
-     appBar: AppBar(
-      title: Text(
-        _getAppBarTitle(),
-          style: const TextStyle(fontSize: 24, color: Colors.white, fontWeight: FontWeight.bold,),
-          
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        title: Text(
+          _getAppBarTitle(),
+          style: const TextStyle(
+            fontSize: 24,
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
         ),
-       backgroundColor: Colors.black.withOpacity(0),
+        backgroundColor: Colors.black.withOpacity(0),
         elevation: 0,
       ),
       body: Stack(
@@ -73,7 +75,7 @@ String _getAppBarTitle() {
         child: Container(
           decoration: BoxDecoration(
             color: Colors.white.withOpacity(0.8),
-            borderRadius: BorderRadius.circular(30), 
+            borderRadius: BorderRadius.circular(30),
             boxShadow: [
               BoxShadow(
                 color: Colors.black.withOpacity(0.2),
@@ -91,21 +93,21 @@ String _getAppBarTitle() {
                 activeColor: Colors.white,
                 tabBackgroundColor: const Color.fromARGB(255, 96, 196, 209),
                 gap: 8,
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                 duration: const Duration(milliseconds: 300),
                 tabs: const [
-                    GButton(icon: Icons.history, text: 'History'),
-                    GButton(icon: Icons.add, text: 'Add'),
-                    GButton(icon: Icons.delete, text: 'Delete'),
-                  ],
-                  selectedIndex: _selectedIndex == -1 ? 0 : _selectedIndex,
-                  onTabChange: _onItemTapped,
+                  GButton(icon: Icons.history, text: 'History'),
+                  GButton(icon: Icons.add, text: 'Add'),
+                  GButton(icon: Icons.delete, text: 'Delete'),
+                ],
+                selectedIndex: _selectedIndex == -1 ? 0 : _selectedIndex,
+                onTabChange: _onItemTapped,
               ),
             ),
           ),
-          backgroundColor: const Color.fromARGB(255, 255, 255, 255),
         ),
-        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
-        body: const CurrentTreatmentsScreen());
+      ),
+    );
   }
 }
