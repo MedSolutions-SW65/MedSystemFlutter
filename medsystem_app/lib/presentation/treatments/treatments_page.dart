@@ -28,7 +28,7 @@ class _TreatmentsScreenState extends State<TreatmentsScreen> {
   ];
 
   String _getAppBarTitle() {
-    if (_selectedIndex == 0) return 'Current Treatments';
+    if (_selectedIndex == 0) return 'History Treatments';
     if (_selectedIndex == 1) return 'Add Treatments';
     if (_selectedIndex == 2) return 'Remove Treatments';
     return 'Current Treatments';
