@@ -46,6 +46,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
         final doctorData = json.decode(doctorResponse.body);
         setState(() {
           fullName = doctorData['fullName'];
+          userEmail = doctorData['email'];
         });
         return;
       }
@@ -57,6 +58,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
         final patientData = json.decode(patientResponse.body);
         setState(() {
           fullName = patientData['fullName'];
+          userEmail = patientData['email'];
         });
         return;
       }
@@ -70,10 +72,6 @@ class _UserProfilePageState extends State<UserProfilePage> {
       });
     }
 
-    final email = await authService.getCurrentUserEmail();
-    setState(() {
-      userEmail = email;
-    });
   }
 
   @override
@@ -124,6 +122,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                     const SizedBox(height: 16),
                     Text(
                       'Hola de nuevo ${fullName ?? 'Cargando...'}',
+                      textAlign: TextAlign.center,
                       style: const TextStyle(
                         fontSize: 24,
                         color: Colors.black,
@@ -133,6 +132,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                     const SizedBox(height: 8),
                     Text(
                       userEmail ?? 'Cargando...',
+                      textAlign: TextAlign.center,
                       style: const TextStyle(
                         fontSize: 16,
                         color: Colors.black,
