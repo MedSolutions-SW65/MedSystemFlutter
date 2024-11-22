@@ -41,3 +41,35 @@ class AddTreatmentService {
     return null;
   }
 }
+
+class DeleteTreatmentService {
+  final String baseUrl;
+
+  DeleteTreatmentService({required this.baseUrl});
+
+  Future<void> deleteTreatment(String treatmentName) async {
+    final url = Uri.parse('$baseUrl/$treatmentName');
+
+    try {
+      final response = await http.delete(
+        url,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      );
+
+      if (response.statusCode == HttpStatus.ok) {
+        print('Treatment deleted successfully');
+      } else {
+        final responseBody = jsonDecode(response.body);
+        final errorMessage =
+            responseBody['error'] ?? 'Failed to delete treatment';
+        print('Error deleting treatment: $errorMessage');
+        throw Exception(errorMessage);
+      }
+    } catch (e) {
+      print('Error deleting treatment: $e');
+      throw Exception('Error deleting treatment: $e');
+    }
+  }
+}
