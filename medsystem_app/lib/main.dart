@@ -1,9 +1,12 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:medsystem_app/features/treatments/presentation/pages/treatments_page.dart';
 import 'package:medsystem_app/features/appointments/presentation/blocs/appointments_bloc.dart';
 
 //import 'package:medsystem_app/homepage.dart';
+//import 'package:medsystem_app/services/auth/auth_gate.dart';
+import 'package:medsystem_app/features/auth/data/remote/firebase_options.dart';
 import 'package:medsystem_app/features/auth/data/remote/auth_gate.dart';
 import 'package:medsystem_app/features/auth/data/remote/firebase_options.dart';
 
@@ -33,7 +36,7 @@ class MainApp extends StatelessWidget {
         ),
       ],
       child: const MaterialApp(
-        debugShowCheckedModeBanner: false,
+         debugShowCheckedModeBanner: false,
         home: AuthGate(),
       ),
     );

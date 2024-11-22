@@ -15,3 +15,10 @@ class TreatmentsErrorState extends TreatmentsState {
   String message;
   TreatmentsErrorState({required this.message});
 }
+
+class TreatmentsAddedState extends TreatmentsState {
+  Treatment treatment;
+  TreatmentsAddedState({required this.treatment});
+}
+
+class TreatmentsDeletedState extends TreatmentsState {}

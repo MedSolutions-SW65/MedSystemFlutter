@@ -10,10 +10,15 @@ dependencies:
   flutter:
     sdk: flutter
   google_nav_bar: ^5.0.6
+  equatable: ^2.0.5
   table_calendar: ^3.0.0
   http: ^1.2.2
-  url_launcher: ^6.3.1
+<<<<<<< HEAD
+=======
   flutter_bloc: ^8.1.6
+
+>>>>>>> feature/treatements
+  url_launcher: ^6.3.1
   firebase_core: ^3.6.0
   firebase_auth: ^5.3.1
   cloud_firestore: ^5.4.4
