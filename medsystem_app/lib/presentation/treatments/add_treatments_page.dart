@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:medsystem_app/presentation/bloc/treatments_bloc.dart';
+import 'package:medsystem_app/presentation/bloc/treatments_event.dart';
+import 'package:medsystem_app/presentation/bloc/treatments_state.dart';
 import 'package:medsystem_app/presentation/treatments/treatments_page.dart';
 
 class AddTreatmentsScreen extends StatefulWidget {
@@ -11,23 +15,41 @@ class AddTreatmentsScreen extends StatefulWidget {
 class _AddTreatmentsScreenState extends State<AddTreatmentsScreen> {
   final _formKey = GlobalKey<FormState>();
 
+  final TextEditingController _treatmentController = TextEditingController();
+  final TextEditingController _descriptionController = TextEditingController();
+  final TextEditingController _startDateController = TextEditingController();
+  final TextEditingController _endDateController = TextEditingController();
+  final TextEditingController _patientIdController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
         children: [
-          // Fondo con imagen y opacidad
-          Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: const AssetImage("assets/images/fondo.jpg"),
-                fit: BoxFit.cover,
-                colorFilter: ColorFilter.mode(
-                  Colors.black.withOpacity(0.5),
-                  BlendMode.darken,
+          BlocConsumer<TreatmentsBloc, TreatmentsState>(
+            listener: (context, state) {
+              if (state is TreatmentsAddedState) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Los datos se guardaron correctamente'),
+                  ),
+                );
+              }
+            },
+            builder: (context, state) {
+              return Container(
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: const AssetImage("assets/images/fondo.jpg"),
+                    fit: BoxFit.cover,
+                    colorFilter: ColorFilter.mode(
+                      Colors.black.withOpacity(0.5),
+                      BlendMode.darken,
+                    ),
+                  ),
                 ),
-              ),
-            ),
+              );
+            },
           ),
           Column(
             children: [
@@ -75,25 +97,47 @@ class _AddTreatmentsScreenState extends State<AddTreatmentsScreen> {
                               child: Column(
                                 children: <Widget>[
                                   _buildTextField(
-                                    label: 'Name of Patient',
-                                  ),
-                                  const SizedBox(height: 10),
-                                  _buildTextField(
+                                    controller: _treatmentController,
                                     label: 'Name of Treatment',
                                   ),
                                   const SizedBox(height: 10),
                                   _buildTextField(
+                                    controller: _descriptionController,
                                     label: 'Description',
                                   ),
                                   const SizedBox(height: 10),
                                   _buildTextField(
-                                    label: 'Period',
+                                    controller: _startDateController,
+                                    label: 'Start Date',
+                                  ),
+                                  const SizedBox(height: 10),
+                                  _buildTextField(
+                                    controller: _endDateController,
+                                    label: 'End Date',
+                                  ),
+                                  const SizedBox(height: 10),
+                                  _buildTextField(
+                                    controller: _patientIdController,
+                                    label: 'Id del paciente',
                                   ),
                                   const SizedBox(height: 20),
                                   ElevatedButton(
                                     onPressed: () {
                                       if (_formKey.currentState!.validate()) {
-                                        // Acción para enviar el tratamiento
+                                        BlocProvider.of<TreatmentsBloc>(context)
+                                            .add(
+                                          AddTreatment(
+                                            treatmentName:
+                                                _treatmentController.text,
+                                            description:
+                                                _descriptionController.text,
+                                            startDate:
+                                                _startDateController.text,
+                                            endDate: _endDateController.text,
+                                            patientId: int.parse(
+                                                _patientIdController.text),
+                                          ),
+                                        );
                                       }
                                     },
                                     style: ElevatedButton.styleFrom(
@@ -132,8 +176,12 @@ class _AddTreatmentsScreenState extends State<AddTreatmentsScreen> {
     );
   }
 
-  Widget _buildTextField({required String label}) {
+  Widget _buildTextField({
+    required TextEditingController controller,
+    required String label,
+  }) {
     return TextFormField(
+      controller: controller,
       decoration: InputDecoration(
         labelText: label,
         filled: true,

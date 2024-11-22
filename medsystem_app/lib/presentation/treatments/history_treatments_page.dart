@@ -16,7 +16,6 @@ class _HistoryTreatmentsPageState extends State<HistoryTreatmentsPage> {
     return Scaffold(
       body: Stack(
         children: [
-          // Fondo con imagen y opacidad
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
@@ -31,7 +30,8 @@ class _HistoryTreatmentsPageState extends State<HistoryTreatmentsPage> {
           ),
           // Contenido principal con padding en la parte superior
           Padding(
-            padding: const EdgeInsets.only(top: 80.0), // Espacio adicional en la parte superior
+            padding: const EdgeInsets.only(
+                top: 80.0), // Espacio adicional en la parte superior
             child: BlocBuilder<TreatmentsBloc, TreatmentsState>(
               builder: (context, state) {
                 if (state is TreatmentsLoadingState) {
