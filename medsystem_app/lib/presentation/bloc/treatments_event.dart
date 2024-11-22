@@ -21,3 +21,12 @@ class AddTreatment extends TreatmentsEvent {
     required this.patientId,
   });
 }
+
+class DeleteTreatmentEvent extends TreatmentsEvent {
+  final String treatmentName;
+
+  DeleteTreatmentEvent(this.treatmentName);
+
+  @override
+  List<Object> get props => [treatmentName];
+}

@@ -20,3 +20,5 @@ class TreatmentsAddedState extends TreatmentsState {
   Treatment treatment;
   TreatmentsAddedState({required this.treatment});
 }
+
+class TreatmentsDeletedState extends TreatmentsState {}

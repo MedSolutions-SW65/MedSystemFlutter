@@ -35,5 +35,20 @@ class TreatmentsBloc extends Bloc<TreatmentsEvent, TreatmentsState> {
         emit(TreatmentsErrorState(message: e.toString()));
       }
     });
+
+    on<DeleteTreatmentEvent>((event, emit) async {
+      emit(TreatmentsLoadingState());
+
+      try {
+        final service = DeleteTreatmentService(
+            baseUrl: 'http://10.0.2.2:8080/api/v1/treatments/treatmentName');
+        await service.deleteTreatment(event.treatmentName);
+        emit(TreatmentsDeletedState());
+        add(GetTreatments());
+      } catch (e) {
+        emit(TreatmentsErrorState(
+            message: 'Error deleting treatment: ${e.toString()}'));
+      }
+    });
   }
 }
