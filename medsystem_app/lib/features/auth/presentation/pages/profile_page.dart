@@ -28,7 +28,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
 
   Future<void> loadUser() async {
     final authService = AuthService();
-    final user = await authService.getCurrentUser();
+    final user = authService.getCurrentUser();
     final uid = user?.uid;
 
     if (uid == null) {
