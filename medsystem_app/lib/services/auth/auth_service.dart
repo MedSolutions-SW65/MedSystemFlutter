@@ -25,19 +25,24 @@ class AuthService {
     }
   }
 
-  //sign up (register)
+  // Registro con email y contraseña, incluyendo el rol
   Future<UserCredential> signUpWithEmailAndPassword(
-      String email, String password) async {
+      String email, String password, String role) async {
     try {
-      UserCredential userCredential = await _auth
-          .createUserWithEmailAndPassword(email: email, password: password);
+      UserCredential userCredential =
+          await _auth.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
 
-      // save user information if it doesn't exist
-      _firestore.collection('Users').doc(userCredential.user!.uid).set({
+      // Guardar información del usuario en Firestore, incluyendo el rol
+      await _firestore.collection('Users').doc(userCredential.user!.uid).set({
         'uid': userCredential.user!.uid,
         'email': email,
+        'role': role, // Guardar el rol
       });
-      debugPrint('User: ${userCredential.user!.email}');
+
+      debugPrint('Usuario registrado: ${userCredential.user!.email}');
       return userCredential;
     } on FirebaseAuthException catch (e) {
       throw Exception(e.code);
