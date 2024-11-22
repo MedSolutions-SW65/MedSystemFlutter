@@ -140,8 +140,8 @@ class _ChatPageState extends State<ChatPage> {
 
   //build message input
   Widget _buildUserInput() {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 50.0),
+    return Padding (
+      padding: const EdgeInsets.only(bottom: 50.0).add(const EdgeInsets.symmetric(horizontal: 16)),
       child: Row(
         children: [
           Expanded(
@@ -153,14 +153,14 @@ class _ChatPageState extends State<ChatPage> {
                 focusedBorder: OutlineInputBorder(
                   borderSide: const BorderSide(
                       color: Colors
-                          .black), // Color del borde al estar seleccionado
+                          .black), 
                   borderRadius:
-                      BorderRadius.circular(8), // Bordes curvos opcionales
+                      BorderRadius.circular(8),
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderSide: const BorderSide(
                       color: Colors
-                          .grey), // Color del borde al no estar seleccionado
+                          .grey), 
                   borderRadius: BorderRadius.circular(8),
                 ),
               ),

@@ -15,12 +15,12 @@ class AppointmentSchedulingScreen extends StatefulWidget {
 
 class _AppointmentSchedulingScreenState
     extends State<AppointmentSchedulingScreen> {
-  String? selectedDoctor; // Variable para almacenar el doctor seleccionado
+  String? selectedDoctor; 
   String?
-      selectedSpecialty; // Variable para almacenar la especialidad seleccionada
-  List<Map<String, String>> doctors = []; // Lista de doctores obtenidos
+      selectedSpecialty; 
+  List<Map<String, String>> doctors = []; 
   TextEditingController reasonController =
-      TextEditingController(); // Controlador para el motivo
+      TextEditingController(); 
 
   final List<String> specialties = [
     "CARDIOLOGY",
@@ -42,7 +42,7 @@ class _AppointmentSchedulingScreenState
   @override
   void initState() {
     super.initState();
-    fetchDoctors(); // Llamar al método para obtener los doctores al iniciar la pantalla
+    fetchDoctors(); 
   }
 
   Future<void> fetchDoctors() async {
@@ -64,9 +64,9 @@ class _AppointmentSchedulingScreenState
         if (response.statusCode == 200) {
           final Map<String, dynamic> doctorData = jsonDecode(response.body);
           fetchedDoctors.add({
-            'uid': uid, // UID del doctor (por si lo necesitas en el futuro)
-            'id': doctorData['id'].toString(), // ID del doctor desde el backend
-            'name': doctorData['fullName'], // Nombre del doctor
+            'uid': uid, 
+            'id': doctorData['id'].toString(), 
+            'name': doctorData['fullName'], 
           });
         } else {
           debugPrint('Error fetching doctor with UID $uid: ${response.body}');
@@ -263,7 +263,7 @@ class _AppointmentSchedulingScreenState
                   },
                   child: const Center(
                     child: Text('Process',
-                        style: TextStyle(color: Colors.white, fontSize: 18)),
+                        style: TextStyle(color: Color.fromARGB(255, 25, 38, 56), fontSize: 18)),
                   ),
                 ),
               ),

@@ -46,7 +46,7 @@ class _DayOfAppointmentScreenState extends State<DayOfAppointmentScreen> {
                     Navigator.pop(context);
                   },
                 ),
-                const SizedBox(width: 8),
+                const SizedBox(width: 8, height: 80),
                 const Text(
                   'Schedule Appointment',
                   style: TextStyle(
@@ -165,7 +165,7 @@ class _DayOfAppointmentScreenState extends State<DayOfAppointmentScreen> {
                     );
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color.fromARGB(255, 68, 138, 255),
+                    backgroundColor: const Color.fromARGB(255, 25, 38, 56),
                     padding: const EdgeInsets.symmetric(vertical: 16),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
