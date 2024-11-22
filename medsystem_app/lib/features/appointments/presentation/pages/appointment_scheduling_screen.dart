@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:http/http.dart' as http;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -15,12 +16,11 @@ class AppointmentSchedulingScreen extends StatefulWidget {
 
 class _AppointmentSchedulingScreenState
     extends State<AppointmentSchedulingScreen> {
-  String? selectedDoctor; 
-  String?
-      selectedSpecialty; 
-  List<Map<String, String>> doctors = []; 
-  TextEditingController reasonController =
-      TextEditingController(); 
+  String? patientId;
+  String? selectedDoctor;
+  String? selectedSpecialty;
+  List<Map<String, String>> doctors = [];
+  TextEditingController reasonController = TextEditingController();
 
   final List<String> specialties = [
     "CARDIOLOGY",
@@ -42,7 +42,8 @@ class _AppointmentSchedulingScreenState
   @override
   void initState() {
     super.initState();
-    fetchDoctors(); 
+    fetchDoctors();
+    fetchPatientId();
   }
 
   Future<void> fetchDoctors() async {
@@ -64,9 +65,9 @@ class _AppointmentSchedulingScreenState
         if (response.statusCode == 200) {
           final Map<String, dynamic> doctorData = jsonDecode(response.body);
           fetchedDoctors.add({
-            'uid': uid, 
-            'id': doctorData['id'].toString(), 
-            'name': doctorData['fullName'], 
+            'uid': uid,
+            'id': doctorData['id'].toString(),
+            'name': doctorData['fullName'],
           });
         } else {
           debugPrint('Error fetching doctor with UID $uid: ${response.body}');
@@ -78,6 +79,40 @@ class _AppointmentSchedulingScreenState
       });
     } catch (e) {
       debugPrint('Error fetching doctors: $e');
+    }
+  }
+
+  Future<void> fetchPatientId() async {
+    try {
+      final user =
+          FirebaseAuth.instance.currentUser; // Obtener usuario autenticado
+      if (user == null) {
+        debugPrint('Usuario no autenticado');
+        return;
+      }
+
+      final String uid = user.uid; // UID del usuario autenticado
+
+      // Buscar en el endpoint de pacientes usando el UID
+      final response = await http.get(
+        Uri.parse('http://10.0.2.2:8080/api/v1/patients/uid/$uid'),
+      );
+
+      if (response.statusCode == 200) {
+        final Map<String, dynamic> patientData = jsonDecode(response.body);
+
+        // Asignar el ID del paciente
+        setState(() {
+          patientId = patientData['id'].toString();
+        });
+
+        debugPrint('Patient ID obtenido: $patientId');
+      } else {
+        debugPrint(
+            'Error fetching patient ID (UID: $uid): ${response.statusCode} ${response.body}');
+      }
+    } catch (e) {
+      debugPrint('Error fetching patient ID: $e');
     }
   }
 
@@ -243,14 +278,11 @@ class _AppointmentSchedulingScreenState
                 child: ElevatedButton(
                   onPressed: () {
                     final appointment = Appointment(
-                      doctorId: int.parse(
-                          selectedDoctor ?? '0'), // ID del doctor seleccionado
-                      patientId: 1, // Reemplaza con el ID real del paciente
-                      date: '', // La fecha se establecerá más adelante
-                      reason: reasonController
-                          .text, // Texto ingresado por el usuario
-                      specialty: selectedSpecialty ??
-                          'N/A', // Especialidad seleccionada
+                      doctorId: int.parse(selectedDoctor ?? '0'),
+                      patientId: int.parse(patientId!),
+                      date: '',
+                      reason: reasonController.text,
+                      specialty: selectedSpecialty ?? 'N/A',
                     );
 
                     Navigator.push(
@@ -263,7 +295,9 @@ class _AppointmentSchedulingScreenState
                   },
                   child: const Center(
                     child: Text('Process',
-                        style: TextStyle(color: Color.fromARGB(255, 25, 38, 56), fontSize: 18)),
+                        style: TextStyle(
+                            color: Color.fromARGB(255, 25, 38, 56),
+                            fontSize: 18)),
                   ),
                 ),
               ),

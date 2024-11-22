@@ -14,6 +14,54 @@ class ReserveSummaryScreen extends StatefulWidget {
 }
 
 class _ReserveSummaryScreenState extends State<ReserveSummaryScreen> {
+  String? doctorName;
+  String? patientName;
+
+  @override
+  void initState() {
+    super.initState();
+    fetchDoctorName();
+    fetchPatientName();
+  }
+
+  Future<void> fetchDoctorName() async {
+    try {
+      final response = await http.get(
+        Uri.parse(
+            'http://10.0.2.2:8080/api/v1/doctors/${widget.appointment.doctorId}'),
+      );
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        setState(() {
+          doctorName = data['fullName'];
+        });
+      } else {
+        debugPrint('Failed to fetch doctor name: ${response.body}');
+      }
+    } catch (e) {
+      debugPrint('Error fetching doctor name: $e');
+    }
+  }
+
+  Future<void> fetchPatientName() async {
+    try {
+      final response = await http.get(
+        Uri.parse(
+            'http://10.0.2.2:8080/api/v1/patients/${widget.appointment.patientId}'),
+      );
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        setState(() {
+          patientName = data['fullName'];
+        });
+      } else {
+        debugPrint('Failed to fetch patient name: ${response.body}');
+      }
+    } catch (e) {
+      debugPrint('Error fetching patient name: $e');
+    }
+  }
+
   Future<void> postAppointment(Appointment appointment) async {
     final url = Uri.parse('http://10.0.2.2:8080/api/v1/appointments');
 
@@ -132,9 +180,9 @@ class _ReserveSummaryScreenState extends State<ReserveSummaryScreen> {
                             ),
                             const SizedBox(height: 20),
                             _buildSummaryRow(
-                              icon: Icons.man,
+                              icon: Icons.person,
                               label: 'PATIENT:',
-                              value: widget.appointment.patientId.toString(),
+                              value: patientName ?? 'Loading...',
                             ),
                             const SizedBox(height: 10),
                             _buildSummaryRow(
@@ -150,9 +198,9 @@ class _ReserveSummaryScreenState extends State<ReserveSummaryScreen> {
                             ),
                             const SizedBox(height: 10),
                             _buildSummaryRow(
-                              icon: Icons.medical_services_outlined,
+                              icon: Icons.person_outline,
                               label: 'DOCTOR:',
-                              value: widget.appointment.doctorId.toString(),
+                              value: doctorName ?? 'Loading...',
                             ),
                             const SizedBox(height: 10),
                             _buildSummaryRow(
