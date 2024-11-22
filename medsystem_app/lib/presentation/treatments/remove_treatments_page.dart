@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:medsystem_app/presentation/treatments/treatments_page.dart';
 
 class RemoveTreatmentsPage extends StatefulWidget {
   const RemoveTreatmentsPage({super.key});
@@ -39,14 +38,8 @@ class _RemoveTreatmentsPageState extends State<RemoveTreatmentsPage> {
                 backgroundColor: Colors.transparent,
                 elevation: 0,
                 leading: IconButton(
-                  icon: const Icon(Icons.arrow_back, color: Colors.white),
+                  icon: const Icon(Icons.arrow_back, color: Colors.transparent),
                   onPressed: () {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const TreatmentsScreen(),
-                      ),
-                    );
                   },
                 ),
               ),

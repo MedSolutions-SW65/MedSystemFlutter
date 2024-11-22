@@ -22,147 +22,138 @@ class _AppointmentPageState extends State<AppointmentPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF2E3F6E),
+      appBar: AppBar(
+        title: const Text(
+          'Appointments',
+          style: TextStyle(
+            fontSize: 24,
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        backgroundColor: const Color.fromARGB(255, 25, 38, 56),
+        elevation: 0,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context); // Regresa al Homepage
+          },
+        ),
+      ),
       body: Stack(
         children: [
-          const Padding(
-            padding: EdgeInsets.only(
-                top: 16.0), // Espacio adicional en la parte superior
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: 16.0), // Espacio alrededor del título
-                  child: Text(
-                    'Appointment Search',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 32,
-                      color: Colors.white,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
+          Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: const AssetImage("assets/images/fondo.jpg"),
+                fit: BoxFit.cover,
+                colorFilter: ColorFilter.mode(
+                  Colors.black.withOpacity(0.5),
+                  BlendMode.darken,
                 ),
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: 16.0,
-                      vertical: 8.0), // Espacio alrededor del subtítulo
-                  child: Text(
-                    'My next appointments',
-                    style: TextStyle(
-                      fontSize: 24,
-                      color: Colors.white,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              ],
+              ),
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 100, left: 50, right: 50),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                BlocBuilder<AppointmentsBloc, AppointmentsState>(
-                  builder: (context, state) {
-                    if (state is AppointmentsLoadingState) {
-                      return const CircularProgressIndicator();
-                    } else if (state is AppointmentsLoadedState) {
-                      if (state.appointments.isEmpty) {
-                        return const Padding(
-                          padding: EdgeInsets.only(
-                              left: 10.0, right: 10.0, bottom: 40),
-                          child: Card(
-                            color: Color(0xFFEDF2FA),
-                            child: Column(
-                              children: [
-                                Padding(
-                                  padding: EdgeInsets.fromLTRB(10, 30, 1, 3),
-                                  child: Icon(
-                                    Icons.calendar_today,
-                                    size: 65,
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.only(top: 70.0),
-                                  child: Text(
-                                      'You don\'t have appointments booked'),
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.only(
-                                      top: 8.0,
-                                      left: 15,
-                                      right: 15,
-                                      bottom: 10),
-                                  child: Text(
-                                    'Schedule a Medical Appointment or Service with us',
-                                    textAlign: TextAlign.end,
-                                  ),
-                                ),
-                              ],
-                            ),
+            padding: const EdgeInsets.all(16.0),
+            child: BlocBuilder<AppointmentsBloc, AppointmentsState>(
+              builder: (context, state) {
+                if (state is AppointmentsLoadingState) {
+                  return const Center(child: CircularProgressIndicator());
+                } else if (state is AppointmentsLoadedState) {
+                  if (state.appointments.isEmpty) {
+                    return const Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: const [
+                          Icon(
+                            Icons.calendar_today,
+                            size: 65,
+                            color: Colors.white,
                           ),
-                        );
-                      }
-                      return Expanded(
-                        child: ListView.builder(
-                          itemCount: state.appointments.length,
-                          itemBuilder: (context, index) {
-                            return Card(
-                              color: const Color(0xFFEDF2FA),
-                              child: Column(
-                                children: [
-                                  Text(state.appointments[index].doctorId
-                                      .toString()),
-                                  Text(state.appointments[index].patientId
-                                      .toString()),
-                                  Text(state.appointments[index].date),
-                                  Text(state.appointments[index].reason),
-                                  Text(state.appointments[index].specialty),
-                                ],
+                          SizedBox(height: 20),
+                          Text(
+                            'You don\'t have appointments booked',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                          SizedBox(height: 10),
+                          Text(
+                            'Schedule a Medical Appointment or Service with us',
+                            style: TextStyle(
+                              color: Colors.white70,
+                              fontSize: 16,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
+                      ),
+                    );
+                  }
+                  return ListView.builder(
+                    itemCount: state.appointments.length,
+                    itemBuilder: (context, index) {
+                      return Card(
+                        color: const Color.fromARGB(255, 96, 196, 209),
+                        margin: const EdgeInsets.symmetric(vertical: 10),
+                        child: ListTile(
+                          title: Text(
+                            'Doctor ID: ${state.appointments[index].doctorId}',
+                            style: const TextStyle(color: Colors.black),
+                          ),
+                          subtitle: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Patient ID: ${state.appointments[index].patientId}',
+                                style: const TextStyle(color: Colors.black54),
                               ),
-                            );
-                          },
-                        ),
-                      );
-                    } else {
-                      return const Text(
-                        'Failed to load appointments',
-                        style: TextStyle(color: Colors.red, fontSize: 20),
-                      );
-                    }
-                  },
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 220, top: 30),
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              const AppointmentSchedulingScreen(),
+                              Text(
+                                'Date: ${state.appointments[index].date}',
+                                style: const TextStyle(color: Colors.black54),
+                              ),
+                              Text(
+                                'Reason: ${state.appointments[index].reason}',
+                                style: const TextStyle(color: Colors.black54),
+                              ),
+                              Text(
+                                'Specialty: ${state.appointments[index].specialty}',
+                                style: const TextStyle(color: Colors.black54),
+                              ),
+                            ],
+                          ),
+                          isThreeLine: true,
                         ),
                       );
                     },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF007AFF),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
+                  );
+                } else {
+                  return const Center(
+                    child: Text(
+                      'Failed to load appointments',
+                      style: TextStyle(color: Colors.red, fontSize: 20),
                     ),
-                    child: const Text(
-                      'Schedule an appointment',
-                      style: TextStyle(color: Colors.black),
-                    ),
-                  ),
-                ),
-              ],
+                  );
+                }
+              },
             ),
           ),
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const AppointmentSchedulingScreen(),
+            ),
+          );
+        },
+        backgroundColor: const Color.fromARGB(255, 68, 138, 255),
+        child: const Icon(Icons.add, color: Colors.white),
       ),
     );
   }

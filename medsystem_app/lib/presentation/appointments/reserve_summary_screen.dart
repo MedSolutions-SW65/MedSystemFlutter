@@ -12,122 +12,114 @@ class _ReserveSummaryScreenState extends State<ReserveSummaryScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF2E3F6E),
+      appBar: AppBar(
+        title: const Text(
+          'Reserve Summary',
+          style: TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
+        backgroundColor: const Color(0xFF2E3F6E),
+        elevation: 0,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+      ),
       body: Stack(
         children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                const Text(
-                  'Schedule your appointment',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 32,
-                    color: Colors.white,
-                  ),
-                  textAlign: TextAlign.center,
+          Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: const AssetImage("assets/images/fondo.jpg"),
+                fit: BoxFit.cover,
+                colorFilter: ColorFilter.mode(
+                  Colors.black.withOpacity(0.5),
+                  BlendMode.darken,
                 ),
-                const Padding(
-                  padding: EdgeInsets.only(
-                      top: 90.0, bottom: 20, left: 30, right: 30),
-                  child: Center(
-                    child: Card(
-                      color: Color(0xFFEDF2FA),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              children: [
+                Expanded(
+                  child: Card(
+                    color: const Color(0xFFEDF2FA),
+                    elevation: 5,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Align(
+                          const Align(
                             alignment: Alignment.center,
                             child: Text(
-                              'Reserve Sumary',
+                              'Summary Details',
                               style: TextStyle(
                                 fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black,
                               ),
                             ),
                           ),
-                          SizedBox(height: 10),
-                          Padding(
-                            padding: EdgeInsets.only(top: 40, left: 10),
-                            child: Row(children: [
-                              Icon(Icons.man, size: 20),
-                              Text(
-                                'PATIENT:',
-                                style: TextStyle(
-                                  fontSize: 14,
-                                ),
-                              ),
-                            ]),
+                          const SizedBox(height: 20),
+                          _buildSummaryRow(
+                            icon: Icons.man,
+                            label: 'PATIENT:',
+                            value: 'John Doe',
                           ),
-                          SizedBox(height: 10),
-                          Padding(
-                            padding: EdgeInsets.only(left: 10),
-                            child: Row(children: [
-                              Icon(Icons.location_on, size: 20),
-                              Text(
-                                'REASON:',
-                                style: TextStyle(
-                                  fontSize: 14,
-                                ),
-                              ),
-                            ]),
+                          const SizedBox(height: 10),
+                          _buildSummaryRow(
+                            icon: Icons.location_on,
+                            label: 'REASON:',
+                            value: 'General Checkup',
                           ),
-                          SizedBox(height: 10),
-                          Padding(
-                            padding: EdgeInsets.only(left: 10),
-                            child: Row(children: [
-                              Icon(Icons.healing, size: 20),
-                              Text(
-                                'SPECIALITY:',
-                                style: TextStyle(
-                                  fontSize: 14,
-                                ),
-                              ),
-                            ]),
+                          const SizedBox(height: 10),
+                          _buildSummaryRow(
+                            icon: Icons.healing,
+                            label: 'SPECIALITY:',
+                            value: 'Cardiology',
                           ),
-                          SizedBox(height: 10),
-                          Padding(
-                            padding: EdgeInsets.only(left: 10),
-                            child: Row(children: [
-                              Icon(Icons.medical_services_outlined, size: 20),
-                              Text(
-                                'DOCTOR:',
-                                style: TextStyle(
-                                  fontSize: 14,
-                                ),
-                              ),
-                            ]),
+                          const SizedBox(height: 10),
+                          _buildSummaryRow(
+                            icon: Icons.medical_services_outlined,
+                            label: 'DOCTOR:',
+                            value: 'Dr. Smith',
                           ),
-                          SizedBox(height: 10),
-                          Padding(
-                            padding: EdgeInsets.only(bottom: 40, left: 10),
-                            child: Row(children: [
-                              Icon(Icons.access_time, size: 20),
-                              Text(
-                                'TURN:',
-                                style: TextStyle(
-                                  fontSize: 14,
-                                ),
+                          const SizedBox(height: 10),
+                          _buildSummaryRow(
+                            icon: Icons.access_time,
+                            label: 'TURN:',
+                            value: '10:30 AM, 12 Dec 2024',
+                          ),
+                          const SizedBox(height: 20),
+                          const Align(
+                            alignment: Alignment.centerRight,
+                            child: Text(
+                              "S/ 42.00",
+                              style: TextStyle(
+                                fontSize: 20,
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
                               ),
-                            ]),
+                            ),
                           ),
                         ],
                       ),
                     ),
                   ),
                 ),
-                const Padding(
-                  padding: EdgeInsets.only(left: 210),
-                  child: Text("S/ 42.00",
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                      )),
-                ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 160, right: 160, top: 20),
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: ElevatedButton(
                     onPressed: () {
                       Navigator.push(
@@ -139,21 +131,50 @@ class _ReserveSummaryScreenState extends State<ReserveSummaryScreen> {
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFFFF5722),
+                      padding: const EdgeInsets.symmetric(vertical: 16),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
                     ),
-                    child: const Text(
-                      'Confirm and pay',
-                      style: TextStyle(color: Colors.white),
+                    child: const Center(
+                      child: Text(
+                        'Confirm and Pay',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                        ),
+                      ),
                     ),
                   ),
-                )
+                ),
+                const SizedBox(height: 20),
               ],
             ),
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildSummaryRow({
+    required IconData icon,
+    required String label,
+    required String value,
+  }) {
+    return Row(
+      children: [
+        Icon(icon, size: 24, color: Colors.black87),
+        const SizedBox(width: 10),
+        Expanded(
+          child: Text(
+            '$label $value',
+            style: const TextStyle(
+              fontSize: 16,
+              color: Colors.black87,
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

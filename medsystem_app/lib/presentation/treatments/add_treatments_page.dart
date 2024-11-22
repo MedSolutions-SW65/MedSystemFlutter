@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:medsystem_app/presentation/treatments/treatments_page.dart';
 
 class AddTreatmentsScreen extends StatefulWidget {
   const AddTreatmentsScreen({super.key});
@@ -35,14 +34,8 @@ class _AddTreatmentsScreenState extends State<AddTreatmentsScreen> {
                 backgroundColor: Colors.transparent,
                 elevation: 0,
                 leading: IconButton(
-                  icon: const Icon(Icons.arrow_back, color: Colors.white),
+                  icon: const Icon(Icons.arrow_back, color: Colors.transparent),
                   onPressed: () {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const TreatmentsScreen(),
-                      ),
-                    );
                   },
                 ),
               ),
@@ -97,7 +90,7 @@ class _AddTreatmentsScreenState extends State<AddTreatmentsScreen> {
                                       }
                                     },
                                     style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.blueAccent,
+                                      backgroundColor: const Color.fromRGBO(68, 138, 255, 1),
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(10),
                                       ),
