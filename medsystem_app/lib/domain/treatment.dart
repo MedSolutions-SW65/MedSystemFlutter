@@ -4,6 +4,7 @@ class Treatment {
   String description;
   String startDate;
   String endDate;
+  String? period;
   int patientId;
 
   Treatment(
@@ -12,9 +13,8 @@ class Treatment {
       required this.description,
       required this.startDate,
       required this.endDate,
+      this.period,
       required this.patientId});
-
-  String get period => '$startDate - $endDate';
 
   Map<String, dynamic> toMap() {
     return {
@@ -23,6 +23,7 @@ class Treatment {
       'description': description,
       'startDate': startDate,
       'endDate': endDate,
+      if (period != null) 'period': period,
       'patientId': patientId,
     };
   }
@@ -35,6 +36,7 @@ class Treatment {
       startDate: json['startDate'] ?? '',
       endDate: json['endDate'] ?? '',
       patientId: json['patientId'] ?? -1,
+      period: json['period'],
     );
   }
 }
