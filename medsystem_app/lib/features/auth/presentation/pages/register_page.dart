@@ -50,18 +50,18 @@ class _RegisterPageState extends State<RegisterPage> {
       );
 
       if (userCredential.user != null) {
+        final String uid = userCredential.user!.uid; // Capturar el UID
+
         // Guardar el rol del usuario en Firestore
-        await FirebaseFirestore.instance
-            .collection('Users')
-            .doc(userCredential.user!.uid)
-            .set({
-          'uid': userCredential.user!.uid,
+        await FirebaseFirestore.instance.collection('Users').doc(uid).set({
+          'uid': uid,
           'email': emailController.text,
           'role': selectedRole, // Guardar el rol (Doctor o Patient)
         });
 
         // Construcción del cuerpo de la solicitud para el backend
         Map<String, dynamic> body = {
+          "uid": uid, // Incluir el UID en la solicitud al backend
           "firstName": firstNameController.text,
           "lastName": lastNameController.text,
           "email": emailController.text,

@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:medsystem_app/features/appointments/domain/appointment.dart';
 import 'package:medsystem_app/features/appointments/presentation/pages/reserve_summary_screen.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class DayOfAppointmentScreen extends StatefulWidget {
-  const DayOfAppointmentScreen({super.key});
+  final Appointment appointment;
+
+  const DayOfAppointmentScreen({super.key, required this.appointment});
 
   @override
-  _DayOfAppointmentScreenState createState() => _DayOfAppointmentScreenState();
+  State<DayOfAppointmentScreen> createState() => _DayOfAppointmentScreenState();
 }
 
 class _DayOfAppointmentScreenState extends State<DayOfAppointmentScreen> {
@@ -57,7 +60,8 @@ class _DayOfAppointmentScreenState extends State<DayOfAppointmentScreen> {
           ),
           // Contenido principal
           SingleChildScrollView(
-            padding: const EdgeInsets.only(top: 80, left: 16.0, right: 16.0, bottom: 20),
+            padding: const EdgeInsets.only(
+                top: 80, left: 16.0, right: 16.0, bottom: 20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -142,10 +146,21 @@ class _DayOfAppointmentScreenState extends State<DayOfAppointmentScreen> {
                 // Botón "Next"
                 ElevatedButton(
                   onPressed: () {
+                    final updatedAppointment = Appointment(
+                      doctorId: widget.appointment.doctorId,
+                      patientId: widget.appointment.patientId,
+                      date: _selectedDay != null
+                          ? '${_selectedDay!.year}-${_selectedDay!.month}-${_selectedDay!.day}'
+                          : '',
+                      reason: widget.appointment.reason,
+                      specialty: widget.appointment.specialty,
+                    );
+
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const ReserveSummaryScreen(),
+                        builder: (context) => ReserveSummaryScreen(
+                            appointment: updatedAppointment),
                       ),
                     );
                   },
