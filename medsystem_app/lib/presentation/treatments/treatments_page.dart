@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:medsystem_app/presentation/treatments/add_treatments_page.dart';
-import 'package:medsystem_app/presentation/treatments/current_treatments_page.dart';
-import 'package:medsystem_app/presentation/treatments/history_treatments_page.dart';
-import 'package:medsystem_app/presentation/treatments/remove_treatments_page.dart';
+import 'package:medsystem_app/features/treatments/presentation/pages/add_treatments_page.dart';
+import 'package:medsystem_app/features/treatments/presentation/pages/current_treatments_page.dart';
+import 'package:medsystem_app/features/treatments/presentation/pages/history_treatments_page.dart';
+import 'package:medsystem_app/features/treatments/presentation/pages/remove_treatments_page.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
 class TreatmentsScreen extends StatefulWidget {
