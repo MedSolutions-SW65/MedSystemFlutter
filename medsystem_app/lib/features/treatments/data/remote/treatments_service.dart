@@ -19,26 +19,37 @@ class TreatmentsService {
 }
 
 class AddTreatmentService {
-  Future<Treatment?> postTreatments(String treatmentName, String description,
-      String startDate, String endDate, String patientId) async {
-    http.Response response = await http.post(
-      Uri.parse(baseUrl),
-      headers: {"Content-Type": "application/json"},
-      body: jsonEncode(Treatment(
-        id: 0,
-        treatmentName: treatmentName,
-        description: description,
-        startDate: startDate,
-        endDate: endDate,
-        patientId: int.parse(patientId),
-      ).toMap()),
-    );
-    if (response.statusCode == HttpStatus.ok) {
-      Map<String, dynamic> json = jsonDecode(response.body);
-      final treatment = Treatment.fromJson(json);
-      return treatment;
+  Future<Treatment?> postTreatments(
+      String treatmentName,
+      String description,
+      String startDate,
+      String endDate,
+      String patientId,
+      String doctorId) async {
+    try {
+      http.Response response = await http.post(
+        Uri.parse(baseUrl),
+        headers: {"Content-Type": "application/json"},
+        body: jsonEncode(Treatment(
+          id: 0,
+          treatmentName: treatmentName,
+          description: description,
+          startDate: startDate,
+          endDate: endDate,
+          patientId: int.parse(patientId),
+          doctorId: int.parse(doctorId),
+        ).toMap()),
+      );
+      if (response.statusCode == 201) {
+        Map<String, dynamic> json = jsonDecode(response.body);
+        final treatment = Treatment.fromJson(json);
+        return treatment;
+      } else {
+        throw Exception('Invalid response from server');
+      }
+    } catch (e) {
+      rethrow;
     }
-    return null;
   }
 }
 

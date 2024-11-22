@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medsystem_app/features/treatments/presentation/blocs/treatments_bloc.dart';
 import 'package:medsystem_app/features/treatments/presentation/blocs/treatments_event.dart';
 import 'package:medsystem_app/features/treatments/presentation/blocs/treatments_state.dart';
-import 'package:medsystem_app/presentation/treatments/treatments_page.dart';
+
 
 class RemoveTreatmentsPage extends StatefulWidget {
   const RemoveTreatmentsPage({super.key});

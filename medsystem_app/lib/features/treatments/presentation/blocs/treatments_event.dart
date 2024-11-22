@@ -1,3 +1,4 @@
+
 abstract class TreatmentsEvent {
   const TreatmentsEvent();
 }
@@ -12,6 +13,7 @@ class AddTreatment extends TreatmentsEvent {
   final String startDate;
   final String endDate;
   final int patientId;
+  final int doctorId;
 
   const AddTreatment({
     required this.treatmentName,
@@ -19,6 +21,7 @@ class AddTreatment extends TreatmentsEvent {
     required this.startDate,
     required this.endDate,
     required this.patientId,
+    required this.doctorId,
   });
 }
 

@@ -20,6 +20,16 @@ class _AddTreatmentsScreenState extends State<AddTreatmentsScreen> {
   final TextEditingController _startDateController = TextEditingController();
   final TextEditingController _endDateController = TextEditingController();
   final TextEditingController _patientIdController = TextEditingController();
+  final TextEditingController _doctorIdController = TextEditingController();
+
+  void _clearFields() {
+    _treatmentController.clear();
+    _descriptionController.clear();
+    _startDateController.clear();
+    _endDateController.clear();
+    _patientIdController.clear();
+    _doctorIdController.clear();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +42,13 @@ class _AddTreatmentsScreenState extends State<AddTreatmentsScreen> {
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
                     content: Text('Los datos se guardaron correctamente'),
+                  ),
+                );
+                _clearFields(); // Limpiar los campos de texto
+              } else if (state is TreatmentsErrorState) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text('Error: ${state.message}'),
                   ),
                 );
               }
@@ -59,6 +76,7 @@ class _AddTreatmentsScreenState extends State<AddTreatmentsScreen> {
                 leading: IconButton(
                   icon: const Icon(Icons.arrow_back, color: Colors.transparent),
                   onPressed: () {
+                    
                   },
                 ),
               ),
@@ -114,6 +132,11 @@ class _AddTreatmentsScreenState extends State<AddTreatmentsScreen> {
                                     controller: _patientIdController,
                                     label: 'Id del paciente',
                                   ),
+                                  const SizedBox(height: 10),
+                                  _buildTextField(
+                                    controller: _doctorIdController,
+                                    label: 'Id del doctor',
+                                  ),
                                   const SizedBox(height: 20),
                                   ElevatedButton(
                                     onPressed: () {
@@ -121,21 +144,22 @@ class _AddTreatmentsScreenState extends State<AddTreatmentsScreen> {
                                         BlocProvider.of<TreatmentsBloc>(context)
                                             .add(
                                           AddTreatment(
-                                            treatmentName:
-                                                _treatmentController.text,
-                                            description:
-                                                _descriptionController.text,
-                                            startDate:
-                                                _startDateController.text,
-                                            endDate: _endDateController.text,
-                                            patientId: int.parse(
-                                                _patientIdController.text),
-                                          ),
+                                              treatmentName:
+                                                  _treatmentController.text,
+                                              description:
+                                                  _descriptionController.text,
+                                              startDate:
+                                                  _startDateController.text,
+                                              endDate: _endDateController.text,
+                                              patientId: int.parse(
+                                                  _patientIdController.text),
+                                              doctorId: int.parse(
+                                                  _doctorIdController.text)),
                                         );
                                       }
                                     },
                                     style: ElevatedButton.styleFrom(
-                                      backgroundColor: const Color.fromRGBO(68, 138, 255, 1),
+                                      backgroundColor: Colors.blueAccent,
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(10),
                                       ),

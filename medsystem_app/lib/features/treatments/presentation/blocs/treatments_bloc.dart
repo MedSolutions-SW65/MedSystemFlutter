@@ -25,6 +25,7 @@ class TreatmentsBloc extends Bloc<TreatmentsEvent, TreatmentsState> {
           event.startDate,
           event.endDate,
           event.patientId.toString(),
+          event.doctorId.toString(),
         );
         if (treatment != null) {
           emit(TreatmentsAddedState(treatment: treatment));
