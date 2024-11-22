@@ -78,7 +78,7 @@ class _HistoryTreatmentsPageState extends State<HistoryTreatmentsPage> {
                               ),
                               _buildDetailRow(
                                 label: 'Period:',
-                                value: treatment.period,
+                                value: treatment.period ?? 'N/A',
                               ),
                             ],
                           ),
